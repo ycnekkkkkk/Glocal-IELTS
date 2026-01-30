@@ -1,0 +1,157 @@
+import axios, { AxiosError } from 'axios'
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+
+if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    console.log('API URL:', API_URL)
+}
+
+const api = axios.create({
+    baseURL: API_URL,
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    timeout: 60000,
+})
+
+api.interceptors.request.use(
+    (config) => {
+        if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+            console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`)
+        }
+        return config
+    },
+    (error) => {
+        console.error('[API Request Error]', error)
+        return Promise.reject(error)
+    }
+)
+
+api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError) => {
+        if (error.response) {
+            console.error('[API Error]', {
+                status: error.response.status,
+                statusText: error.response.statusText,
+                url: error.config?.url,
+                data: error.response.data,
+            })
+        } else if (error.request) {
+            console.error('[API Error] No response received', {
+                url: error.config?.url,
+                message: error.message,
+            })
+        } else {
+            console.error('[API Error]', error.message)
+        }
+        return Promise.reject(error)
+    }
+)
+
+export interface SessionCreate {
+    level: 'beginner' | 'elementary' | 'intermediate' | 'upper_intermediate' | 'advanced'
+}
+
+export interface PhaseSelection {
+    phase: 'listening_speaking' | 'reading_writing'
+}
+
+export interface SessionResponse {
+    id: number
+    level: string
+    selected_phase: string | null
+    status: string
+    phase1_content: any
+    phase2_content: any
+    phase1_scores: any
+    phase2_scores: any
+    final_results: any
+    created_at: string
+    updated_at: string | null
+}
+
+export const apiClient = {
+    createSession: async (data: SessionCreate): Promise<SessionResponse> => {
+        try {
+            const response = await api.post('/api/sessions', data)
+            return response.data
+        } catch (error) {
+            console.error('Error creating session:', error)
+            throw error
+        }
+    },
+
+    selectPhase: async (sessionId: number, phase: PhaseSelection): Promise<SessionResponse> => {
+        try {
+            const response = await api.post(`/api/sessions/${sessionId}/select-phase`, phase)
+            return response.data
+        } catch (error) {
+            console.error(`Error selecting phase for session ${sessionId}:`, error)
+            throw error
+        }
+    },
+
+    generatePhase: async (sessionId: number): Promise<SessionResponse> => {
+        try {
+            const response = await api.post(`/api/sessions/${sessionId}/generate`)
+            return response.data
+        } catch (error) {
+            console.error(`Error generating phase for session ${sessionId}:`, error)
+            throw error
+        }
+    },
+
+    getSession: async (sessionId: number): Promise<SessionResponse> => {
+        try {
+            const response = await api.get(`/api/sessions/${sessionId}`)
+            return response.data
+        } catch (error) {
+            console.error(`Error getting session ${sessionId}:`, error)
+            throw error
+        }
+    },
+
+    submitPhase1: async (sessionId: number, answers: any): Promise<SessionResponse> => {
+        try {
+            const response = await api.post(`/api/sessions/${sessionId}/submit-phase1`, { answers })
+            return response.data
+        } catch (error) {
+            console.error(`Error submitting phase 1 for session ${sessionId}:`, error)
+            throw error
+        }
+    },
+
+    generatePhase2: async (sessionId: number): Promise<SessionResponse> => {
+        try {
+            const response = await api.post(`/api/sessions/${sessionId}/generate-phase2`)
+            return response.data
+        } catch (error) {
+            console.error(`Error generating phase 2 for session ${sessionId}:`, error)
+            throw error
+        }
+    },
+
+    submitPhase2: async (sessionId: number, answers: any): Promise<SessionResponse> => {
+        try {
+            const response = await api.post(`/api/sessions/${sessionId}/submit-phase2`, { answers })
+            return response.data
+        } catch (error) {
+            console.error(`Error submitting phase 2 for session ${sessionId}:`, error)
+            throw error
+        }
+    },
+
+    aggregateResults: async (sessionId: number): Promise<SessionResponse> => {
+        try {
+            const response = await api.post(`/api/sessions/${sessionId}/aggregate`)
+            return response.data
+        } catch (error) {
+            console.error(`Error aggregating results for session ${sessionId}:`, error)
+            throw error
+        }
+    },
+}
+
+export default apiClient
+
