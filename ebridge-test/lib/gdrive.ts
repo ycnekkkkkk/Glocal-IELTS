@@ -51,6 +51,24 @@ export async function uploadAudio(folderId: string, fileName: string, buffer: Bu
   })
 }
 
+export async function uploadAudioWithMime(folderId: string, fileName: string, buffer: Buffer, mimeType: string) {
+  const drive = google.drive({ version: 'v3', auth: getAuth() })
+  const stream = Readable.from(buffer)
+  await drive.files.create({
+    requestBody: { name: fileName, parents: [folderId] },
+    media: { mimeType, body: stream },
+  })
+}
+
+export async function findAudioInFolder(folderId: string, baseName: string): Promise<{ id: string; name: string } | null> {
+  const drive = google.drive({ version: 'v3', auth: getAuth() })
+  const res = await drive.files.list({
+    q: `'${folderId}' in parents and name contains '${baseName}' and trashed = false`,
+    fields: 'files(id, name, mimeType)',
+  })
+  return res.data.files?.[0] ? { id: res.data.files[0].id!, name: res.data.files[0].name! } : null
+}
+
 export async function uploadText(folderId: string, fileName: string, text: string) {
   const drive = google.drive({ version: 'v3', auth: getAuth() })
   const stream = Readable.from(Buffer.from(text, 'utf-8'))

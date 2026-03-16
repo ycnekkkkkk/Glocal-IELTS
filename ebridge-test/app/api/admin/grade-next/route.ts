@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai'
 import nodemailer from 'nodemailer'
 import {
   getOrCreateSubfolder, listFilesInFolder, downloadFile,
-  deleteFile, findFileInFolder, uploadPDF, uploadJson,
+  deleteFile, findAudioInFolder, uploadPDF, uploadJson,
 } from '@/lib/gdrive'
 import { generateGradePDF } from '@/lib/pdf-generator'
 
@@ -39,11 +39,17 @@ const PART_LABELS: Record<number, string> = {
   4: 'Leadership Scenario (1.5 phút)',
 }
 
-const AUDIO_NAMES: Record<number, string> = {
-  1: 'part1-self-introduction.webm',
-  2: 'part2-cultural-sharing.webm',
-  3: 'part3-intercultural-discussion.webm',
-  4: 'part4-leadership-scenario.webm',
+const AUDIO_BASE_NAMES: Record<number, string> = {
+  1: 'part1-self-introduction',
+  2: 'part2-cultural-sharing',
+  3: 'part3-intercultural-discussion',
+  4: 'part4-leadership-scenario',
+}
+
+function mimeFromName(name: string): string {
+  if (name.endsWith('.mp4') || name.endsWith('.m4a')) return 'audio/mp4'
+  if (name.endsWith('.ogg')) return 'audio/ogg'
+  return 'audio/webm'
 }
 
 function buildPrompt(writing: string): string {
@@ -236,10 +242,11 @@ export async function POST(req: NextRequest) {
     for (let i = 1; i <= 4; i++) {
       contentParts.push({ text: `\n\n=== AUDIO PART ${i} — ${PART_LABELS[i]} ===` })
       if (folderId) {
-        const audioFileId = await findFileInFolder(folderId, AUDIO_NAMES[i])
-        if (audioFileId) {
-          const audioBuf = await downloadFile(audioFileId)
-          contentParts.push({ inlineData: { data: audioBuf.toString('base64'), mimeType: 'audio/webm' } })
+        const audioFile = await findAudioInFolder(folderId, AUDIO_BASE_NAMES[i])
+        if (audioFile) {
+          const audioBuf = await downloadFile(audioFile.id)
+          const mimeType = mimeFromName(audioFile.name)
+          contentParts.push({ inlineData: { data: audioBuf.toString('base64'), mimeType } })
         } else {
           contentParts.push({ text: '[File audio không tồn tại hoặc trống]' })
         }

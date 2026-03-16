@@ -92,6 +92,24 @@ type Phase =
   | 'grading'
   | 'submitting'
 
+function getSupportedMimeType(): string {
+  const types = [
+    'audio/webm;codecs=opus',
+    'audio/webm',
+    'audio/ogg;codecs=opus',
+    'audio/mp4',
+    'audio/aac',
+  ]
+  return types.find(t => MediaRecorder.isTypeSupported(t)) ?? ''
+}
+
+function getFileExtension(mimeType: string): string {
+  if (mimeType.includes('webm')) return 'webm'
+  if (mimeType.includes('ogg')) return 'ogg'
+  if (mimeType.includes('mp4') || mimeType.includes('aac')) return 'mp4'
+  return 'webm'
+}
+
 function formatTime(seconds: number) {
   const m = Math.floor(seconds / 60)
   const s = seconds % 60
@@ -215,14 +233,14 @@ export default function TestPage() {
     if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
   }, [])
 
-  const uploadAudio = useCallback(async (blob: Blob, pid: number, fid: string) => {
+  const uploadAudio = useCallback(async (blob: Blob, pid: number, fid: string, ext = 'webm') => {
     setUploadStatus(prev => ({ ...prev, [pid]: 'uploading' }))
     try {
       const fd = new FormData()
       fd.append('folderId', fid)
       fd.append('partId', String(pid))
       fd.append('type', 'audio')
-      fd.append('file', blob, `part${pid}.webm`)
+      fd.append('file', blob, `part${pid}.${ext}`)
       await fetch('/api/upload-part', { method: 'POST', body: fd })
       setUploadStatus(prev => ({ ...prev, [pid]: 'done' }))
     } catch {
@@ -267,16 +285,18 @@ export default function TestPage() {
   const startRecording = useCallback(async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const mr = new MediaRecorder(stream, { mimeType: 'audio/webm;codecs=opus' })
+      const mimeType = getSupportedMimeType()
+      const mr = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream)
       chunksRef.current = []
 
       mr.ondataavailable = e => { if (e.data.size > 0) chunksRef.current.push(e.data) }
       mr.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: 'audio/webm' })
-        audioBlobsRef.current[part.id] = blob  // Store for Gemini grading
+        const actualMime = mr.mimeType || mimeType || 'audio/webm'
+        const blob = new Blob(chunksRef.current, { type: actualMime })
+        audioBlobsRef.current[part.id] = blob
         stream.getTracks().forEach(t => t.stop())
         const fid = folderIdRef.current
-        if (fid) uploadAudio(blob, part.id, fid)
+        if (fid) uploadAudio(blob, part.id, fid, getFileExtension(actualMime))
       }
 
       mediaRecorderRef.current = mr
