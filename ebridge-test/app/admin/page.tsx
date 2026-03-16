@@ -437,68 +437,68 @@ export default function AdminPage() {
 
       <div className="min-h-screen bg-gray-50">
         <header className="bg-white border-b border-gray-200 shadow-sm">
-          <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img src="/logo-ag.png" alt="" className="h-9 w-auto object-contain" />
-              <img src="/logo-gi.png" alt="" className="h-9 w-auto object-contain" />
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-2 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-2">
+            <div className="flex items-center gap-2">
+              <img src="/logo-ag.png" alt="" className="h-7 sm:h-9 w-auto object-contain shrink-0" />
+              <img src="/logo-gi.png" alt="" className="h-7 sm:h-9 w-auto object-contain shrink-0" />
               <div>
-                <h1 className="font-bold text-gray-900 text-base leading-none">Admin Panel</h1>
+                <h1 className="font-bold text-gray-900 text-sm sm:text-base leading-none">Admin Panel</h1>
                 <p className="text-xs text-gray-400 mt-0.5">Glocal IELTS E-Bridge Test</p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <button onClick={() => loadAll(storedPassword)} disabled={loadingQueue || loadingHistory}
-                className="text-sm text-indigo-600 border border-indigo-200 px-4 py-2 rounded-lg hover:bg-indigo-50 transition disabled:opacity-50">
+                className="flex-1 sm:flex-none text-xs sm:text-sm text-indigo-600 border border-indigo-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-indigo-50 transition disabled:opacity-50 text-center">
                 {(loadingQueue || loadingHistory) ? '⏳' : '🔄'} Làm mới
               </button>
               <button onClick={() => { sessionStorage.removeItem('adminPwd'); setAuthed(false) }}
-                className="text-sm text-gray-500 border border-gray-200 px-4 py-2 rounded-lg hover:bg-gray-100 transition">
+                className="flex-1 sm:flex-none text-xs sm:text-sm text-gray-500 border border-gray-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-gray-100 transition text-center">
                 Đăng xuất
               </button>
             </div>
           </div>
         </header>
 
-        <main className="max-w-5xl mx-auto px-6 py-8 space-y-6">
+        <main className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-8 space-y-4 sm:space-y-6">
 
           {/* Stats */}
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { label: 'Chờ chấm', value: queue.length, color: 'text-amber-600', bg: 'bg-amber-50', border: 'border-amber-100' },
               { label: 'Đã chấm', value: history.length, color: 'text-green-600', bg: 'bg-green-50', border: 'border-green-100' },
               { label: 'Email đã gửi', value: history.filter(r => r.emailSent).length, color: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-100' },
               { label: 'Drive đã lưu', value: history.filter(r => r.savedToDrive).length, color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'border-indigo-100' },
             ].map(s => (
-              <div key={s.label} className={`${s.bg} rounded-xl border ${s.border} p-5 text-center`}>
-                <div className={`text-3xl font-bold ${s.color}`}>{s.value}</div>
-                <div className="text-sm text-gray-500 mt-1">{s.label}</div>
+              <div key={s.label} className={`${s.bg} rounded-xl border ${s.border} p-3 sm:p-5 text-center`}>
+                <div className={`text-2xl sm:text-3xl font-bold ${s.color}`}>{s.value}</div>
+                <div className="text-xs sm:text-sm text-gray-500 mt-1">{s.label}</div>
               </div>
             ))}
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-1 bg-gray-100 p-1 rounded-xl w-fit">
+          <div className="flex gap-1 bg-gray-100 p-1 rounded-xl">
             <button onClick={() => setActiveTab('pending')}
-              className={`px-5 py-2 rounded-lg text-sm font-semibold transition ${activeTab === 'pending' ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
+              className={`flex-1 flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-lg text-sm font-semibold transition ${activeTab === 'pending' ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
               ⏳ Chờ chấm
-              <span className={`ml-2 text-xs px-2 py-0.5 rounded-full font-bold ${activeTab === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-gray-200 text-gray-500'}`}>{queue.length}</span>
+              <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${activeTab === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-gray-200 text-gray-500'}`}>{queue.length}</span>
             </button>
             <button onClick={() => setActiveTab('graded')}
-              className={`px-5 py-2 rounded-lg text-sm font-semibold transition ${activeTab === 'graded' ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
+              className={`flex-1 flex items-center justify-center gap-1.5 px-3 sm:px-5 py-2 rounded-lg text-sm font-semibold transition ${activeTab === 'graded' ? 'bg-white text-indigo-700 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}>
               ✅ Đã chấm
-              <span className={`ml-2 text-xs px-2 py-0.5 rounded-full font-bold ${activeTab === 'graded' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'}`}>{history.length}</span>
+              <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${activeTab === 'graded' ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'}`}>{history.length}</span>
             </button>
           </div>
 
           {/* Grade All Panel */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
-            <div className="flex items-center justify-between">
+          <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-6 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <h2 className="font-bold text-gray-900">Chấm điểm hàng loạt</h2>
                 <p className="text-sm text-gray-500 mt-0.5">AI chấm lần lượt, lưu Drive + gửi email tự động</p>
               </div>
               <button onClick={gradeAll} disabled={isGrading || queue.length === 0}
-                className="bg-indigo-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-indigo-700 transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2">
+                className="w-full sm:w-auto bg-indigo-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-indigo-700 transition disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                 {gradingAll
                   ? <><span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />Đang chấm...</>
                   : <>🤖 Chấm tất cả ({queue.length} bài)</>}
@@ -506,18 +506,18 @@ export default function AdminPage() {
             </div>
 
             {/* Extra API Key */}
-            <div className={`rounded-xl p-4 border ${quotaError ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50'}`}>
-              <div className="flex items-center gap-2 mb-2">
+            <div className={`rounded-xl p-3 sm:p-4 border ${quotaError ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50'}`}>
+              <div className="flex flex-wrap items-center gap-2 mb-2">
                 <span className="text-sm font-semibold text-gray-700">🔑 Gemini API Key dự phòng</span>
                 {quotaError && <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-medium">⛔ Hết quota — cần key mới</span>}
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <input type="text" value={extraApiKey} onChange={e => setExtraApiKey(e.target.value)}
                   placeholder="AIzaSy... (chỉ dùng khi 5 key trong .env đã hết quota)"
-                  className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+                  className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400 min-w-0" />
                 {quotaError && (
                   <button onClick={resumeWithNewKey} disabled={!extraApiKey.trim()}
-                    className="bg-green-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition disabled:opacity-40 whitespace-nowrap">
+                    className="w-full sm:w-auto bg-green-600 text-white font-semibold px-4 py-2 rounded-lg text-sm hover:bg-green-700 transition disabled:opacity-40">
                     ▶ Tiếp tục
                   </button>
                 )}
@@ -550,7 +550,7 @@ export default function AdminPage() {
 
           {/* Queue List — only visible on pending tab */}
           {activeTab === 'pending' && <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center justify-between">
               <h2 className="font-bold text-gray-900">Hàng đợi chờ chấm</h2>
               <span className="bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-1 rounded-full">{queue.length} bài</span>
             </div>
@@ -562,24 +562,27 @@ export default function AdminPage() {
             ) : (
               <div className="divide-y divide-gray-100">
                 {queue.map((item, idx) => (
-                  <div key={item.fileId} className="px-6 py-4 flex items-center gap-4">
-                    <div className="w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center text-sm font-bold shrink-0">{idx + 1}</div>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-gray-900 text-sm truncate">{item.candidateInfo?.fullName || '—'}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">
-                        📧 {item.candidateInfo?.email || '—'} &nbsp;·&nbsp; 📞 {item.candidateInfo?.phone || '—'}
-                      </p>
+                  <div key={item.fileId} className="px-4 sm:px-6 py-3 sm:py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center text-sm font-bold shrink-0">{idx + 1}</div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-gray-900 text-sm truncate">{item.candidateInfo?.fullName || '—'}</p>
+                        <p className="text-xs text-gray-500 mt-0.5 truncate">
+                          📧 {item.candidateInfo?.email || '—'} · 📞 {item.candidateInfo?.phone || '—'}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-0.5 sm:hidden">{item.timestamp ? new Date(item.timestamp).toLocaleString('vi-VN') : ''}</p>
+                      </div>
+                      <div className="text-right shrink-0 hidden sm:block">
+                        <p className="text-xs text-gray-400">{item.candidateInfo?.province || '—'}</p>
+                        <p className="text-xs text-gray-400 mt-0.5">{item.timestamp ? new Date(item.timestamp).toLocaleString('vi-VN') : '—'}</p>
+                      </div>
+                      <button onClick={() => gradeOne(item)} disabled={isGrading}
+                        className="shrink-0 flex items-center gap-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 sm:px-3 py-2 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap">
+                        {gradingItemId === item.fileId
+                          ? <><span className="w-3 h-3 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />Chấm...</>
+                          : <>🤖 Chấm</>}
+                      </button>
                     </div>
-                    <div className="text-right shrink-0 hidden sm:block">
-                      <p className="text-xs text-gray-400">{item.candidateInfo?.province || '—'}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{item.timestamp ? new Date(item.timestamp).toLocaleString('vi-VN') : '—'}</p>
-                    </div>
-                    <button onClick={() => gradeOne(item)} disabled={isGrading}
-                      className="shrink-0 flex items-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold px-3 py-2 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
-                      {gradingItemId === item.fileId
-                        ? <><span className="w-3 h-3 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />Đang chấm...</>
-                        : <>🤖 Chấm bài này</>}
-                    </button>
                   </div>
                 ))}
               </div>
@@ -589,14 +592,14 @@ export default function AdminPage() {
           {/* Results — only visible on graded tab */}
           {activeTab === 'graded' && (
             <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-                <div>
+              <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center justify-between gap-2">
+                <div className="min-w-0">
                   <h2 className="font-bold text-gray-900">Lịch sử đã chấm</h2>
                   <p className="text-xs text-gray-400 mt-0.5">
                     {loadingHistory ? '⏳ Đang tải...' : `${history.length} bài · ${history.filter(r => r.emailSent).length} email đã gửi · ${history.filter(r => r.savedToDrive).length} Drive đã lưu`}
                   </p>
                 </div>
-                <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">{history.length} bài</span>
+                <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full shrink-0">{history.length} bài</span>
               </div>
               {history.length === 0 && !loadingHistory ? (
                 <div className="px-6 py-12 text-center">
@@ -606,63 +609,59 @@ export default function AdminPage() {
               ) : (
               <div className="divide-y divide-gray-100">
                 {history.map((r) => (
-                  <div key={r.fileId} className="px-6 py-4">
-                  <div className="flex items-center gap-4">
-                    {/* Check icon */}
-                    <div className="w-9 h-9 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold text-base shrink-0">✓</div>
+                  <div key={r.fileId} className="px-4 sm:px-6 py-3 sm:py-4">
+                    {/* Top row: icon + info + score */}
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 sm:w-9 sm:h-9 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold text-sm sm:text-base shrink-0">✓</div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-gray-900 text-sm truncate">{r.candidate}</p>
+                        <p className="text-xs text-gray-400 mt-0.5 truncate">
+                          {(r.candidateInfo?.email as string) || '—'} · {(r.candidateInfo?.phone as string) || '—'}
+                        </p>
+                      </div>
+                      <div className="text-center shrink-0">
+                        <div className="text-lg sm:text-xl font-bold text-indigo-700">{r.score}<span className="text-xs sm:text-sm text-gray-400">/100</span></div>
+                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${CEFR_COLOR[r.cefr] ?? 'bg-gray-100 text-gray-600'}`}>{r.cefr}</span>
+                      </div>
+                    </div>
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-gray-900 text-sm">{r.candidate}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">
-                        {(r.candidateInfo?.email as string) || '—'} &nbsp;·&nbsp; {(r.candidateInfo?.phone as string) || '—'}
+                    {/* Bottom row: status badges + view button */}
+                    <div className="flex items-center justify-between mt-2 pl-11 sm:pl-12 gap-2">
+                      <div className="flex flex-wrap gap-x-3 gap-y-1">
+                        {r.savedToDrive ? (
+                          <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
+                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />💾 Drive đã lưu
+                          </span>
+                        ) : (
+                          <button onClick={() => retry(r, 'drive')} disabled={!!retrying[r.fileId + 'drive']}
+                            className="inline-flex items-center gap-1 text-xs text-red-600 font-medium hover:text-red-700 border border-red-200 bg-red-50 hover:bg-red-100 px-2 py-1 rounded-lg transition disabled:opacity-50">
+                            {retrying[r.fileId + 'drive'] ? <span className="w-3 h-3 border border-red-400 border-t-transparent rounded-full animate-spin" /> : '⚠️'}
+                            Lưu Drive
+                          </button>
+                        )}
+                        {r.emailSent ? (
+                          <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
+                            <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />📧 Email đã gửi
+                          </span>
+                        ) : (
+                          <button onClick={() => retry(r, 'email')} disabled={!!retrying[r.fileId + 'email']}
+                            className="inline-flex items-center gap-1 text-xs text-amber-700 font-medium hover:text-amber-800 border border-amber-200 bg-amber-50 hover:bg-amber-100 px-2 py-1 rounded-lg transition disabled:opacity-50">
+                            {retrying[r.fileId + 'email'] ? <span className="w-3 h-3 border border-amber-400 border-t-transparent rounded-full animate-spin" /> : '📤'}
+                            Gửi email
+                          </button>
+                        )}
+                      </div>
+                      <button onClick={() => setModalResult(r)}
+                        className="shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition flex items-center gap-1">
+                        📊 Xem kết quả
+                      </button>
+                    </div>
+
+                    {r.gradedAt && (
+                      <p className="text-xs text-gray-400 mt-1.5 pl-11 sm:pl-[52px]">
+                        🕐 {new Date(r.gradedAt).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
                       </p>
-                    </div>
-
-                    {/* Score */}
-                    <div className="text-center shrink-0">
-                      <div className="text-xl font-bold text-indigo-700">{r.score}<span className="text-sm text-gray-400">/100</span></div>
-                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${CEFR_COLOR[r.cefr] ?? 'bg-gray-100 text-gray-600'}`}>{r.cefr}</span>
-                    </div>
-
-                    {/* Status badges + retry */}
-                    <div className="flex flex-col gap-1.5 shrink-0">
-                      {r.savedToDrive ? (
-                        <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />💾 Drive đã lưu
-                        </span>
-                      ) : (
-                        <button onClick={() => retry(r, 'drive')} disabled={!!retrying[r.fileId + 'drive']}
-                          className="inline-flex items-center gap-1 text-xs text-red-600 font-medium hover:text-red-700 border border-red-200 bg-red-50 hover:bg-red-100 px-2 py-1 rounded-lg transition disabled:opacity-50">
-                          {retrying[r.fileId + 'drive'] ? <span className="w-3 h-3 border border-red-400 border-t-transparent rounded-full animate-spin" /> : '⚠️'}
-                          Lưu lại Drive
-                        </button>
-                      )}
-                      {r.emailSent ? (
-                        <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full" />📧 Email đã gửi
-                        </span>
-                      ) : (
-                        <button onClick={() => retry(r, 'email')} disabled={!!retrying[r.fileId + 'email']}
-                          className="inline-flex items-center gap-1 text-xs text-amber-700 font-medium hover:text-amber-800 border border-amber-200 bg-amber-50 hover:bg-amber-100 px-2 py-1 rounded-lg transition disabled:opacity-50">
-                          {retrying[r.fileId + 'email'] ? <span className="w-3 h-3 border border-amber-400 border-t-transparent rounded-full animate-spin" /> : '📤'}
-                          Gửi email
-                        </button>
-                      )}
-                    </div>
-
-                    {/* View result button */}
-                    <button onClick={() => setModalResult(r)}
-                      className="shrink-0 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center gap-1.5">
-                      📊 Xem kết quả
-                    </button>
-                  </div>
-                  {/* Graded at */}
-                  {r.gradedAt && (
-                    <p className="text-xs text-gray-400 mt-1.5 pl-[52px]">
-                      🕐 {new Date(r.gradedAt).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
-                    </p>
-                  )}
+                    )}
                   </div>
                 ))}
               </div>

@@ -133,14 +133,14 @@ function CircleTimer({ timeLeft, total }: { timeLeft: number; total: number }) {
 
 function ProgressSteps({ current }: { current: number }) {
   return (
-    <div className="flex items-center justify-center gap-2 mb-6">
+    <div className="flex items-center justify-center gap-1 sm:gap-2 mb-4 sm:mb-6">
       {PARTS.map((p, i) => (
-        <div key={p.id} className="flex items-center gap-2">
+        <div key={p.id} className="flex items-center gap-1 sm:gap-2">
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${i < current
+            className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold transition-all duration-300 ${i < current
               ? 'bg-indigo-600 text-white'
               : i === current
-                ? 'bg-indigo-600 text-white ring-4 ring-indigo-200'
+                ? 'bg-indigo-600 text-white ring-2 sm:ring-4 ring-indigo-200'
                 : 'bg-gray-200 text-gray-400'
               }`}
           >
@@ -148,7 +148,7 @@ function ProgressSteps({ current }: { current: number }) {
           </div>
           {i < PARTS.length - 1 && (
             <div
-              className={`h-1 w-8 rounded-full transition-all duration-300 ${i < current ? 'bg-indigo-600' : 'bg-gray-200'
+              className={`h-1 w-5 sm:w-8 rounded-full transition-all duration-300 ${i < current ? 'bg-indigo-600' : 'bg-gray-200'
                 }`}
             />
           )}
@@ -381,37 +381,37 @@ export default function TestPage() {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-indigo-100 shadow-sm sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img src="/logo-ag.png" alt="Logo AG" className="h-8 w-auto object-contain" />
-            <img src="/logo-gi.png" alt="Logo GI" className="h-8 w-auto object-contain" />
-            <span className="font-bold text-indigo-900 text-sm">Glocal IELTS E-Bridge Test</span>
+        <div className="max-w-3xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+            <img src="/logo-ag.png" alt="Logo AG" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
+            <img src="/logo-gi.png" alt="Logo GI" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
+            <span className="font-bold text-indigo-900 text-xs sm:text-sm leading-tight truncate">Glocal IELTS E-Bridge Test</span>
           </div>
           {candidate && (
-            <div className="text-right">
-              <p className="text-xs font-semibold text-gray-700">{candidate.fullName}</p>
+            <div className="text-right shrink-0">
+              <p className="text-xs font-semibold text-gray-700 truncate max-w-[120px] sm:max-w-none">{candidate.fullName}</p>
               <p className="text-xs text-gray-400">{candidate.phone}</p>
             </div>
           )}
         </div>
       </header>
 
-      <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-6">
+      <main className="flex-1 max-w-3xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-6">
 
         {/* Welcome screen */}
         {phase === 'welcome' && (
           <div className="fade-in text-center">
             <ProgressSteps current={-1} />
-            <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-8 max-w-xl mx-auto">
-              <div className="text-6xl mb-4">👋</div>
-              <h2 className="text-2xl font-bold text-indigo-900 mb-2">
+            <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-5 sm:p-8 max-w-xl mx-auto">
+              <div className="text-5xl sm:text-6xl mb-3 sm:mb-4">👋</div>
+              <h2 className="text-xl sm:text-2xl font-bold text-indigo-900 mb-2">
                 Chào {candidate?.fullName?.split(' ').pop()}!
               </h2>
-              <p className="text-gray-600 mb-6">
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
                 Bạn sắp bắt đầu bài kiểm tra E-Bridge. Bài thi gồm <strong>4 phần nói</strong> và <strong>1 phần viết</strong>.
               </p>
-              <div className="text-left bg-indigo-50 rounded-xl p-4 mb-6 space-y-2 text-sm text-gray-700">
-                <p className="font-semibold text-indigo-800 mb-2">Lưu ý quan trọng:</p>
+              <div className="text-left bg-indigo-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 space-y-2 text-xs sm:text-sm text-gray-700">
+                <p className="font-semibold text-indigo-800 mb-1.5 sm:mb-2">Lưu ý quan trọng:</p>
                 <p>🎤 Cho phép trình duyệt truy cập <strong>microphone</strong> khi được hỏi.</p>
                 <p>🔇 Ngồi ở nơi <strong>yên tĩnh</strong>, tránh tiếng ồn xung quanh.</p>
                 <p>⏱️ Hết giờ sẽ <strong>tự động dừng</strong> – bạn không cần bấm nút.</p>
@@ -419,7 +419,7 @@ export default function TestPage() {
               </div>
               <button
                 onClick={() => { setPartIndex(0); setPhase('ready') }}
-                className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg"
+                className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 Bắt đầu bài thi →
               </button>
@@ -432,28 +432,26 @@ export default function TestPage() {
           <div className="fade-in">
             <ProgressSteps current={partIndex} />
             <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 overflow-hidden">
-              <div className="bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">{part.icon}</span>
-                  <div>
-                    <p className="text-indigo-200 text-xs font-medium">
-                      Part {part.id} / {PARTS.length}
-                    </p>
-                    <h2 className="text-white font-bold text-xl">{part.title}</h2>
-                    <p className="text-indigo-200 text-sm">{part.titleVi}</p>
+              <div className="bg-gradient-to-r from-indigo-600 to-blue-600 px-4 sm:px-6 py-3 sm:py-4">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="text-xl sm:text-3xl shrink-0">{part.icon}</span>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-indigo-200 text-xs font-medium">Part {part.id} / {PARTS.length}</p>
+                    <h2 className="text-white font-bold text-sm sm:text-xl leading-tight truncate">{part.title}</h2>
+                    <p className="text-indigo-200 text-xs truncate">{part.titleVi}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="p-6">
-                <div className="bg-gray-50 rounded-xl p-5 mb-5">
-                  <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-3">Câu hỏi</p>
-                  <p className="text-gray-800 font-medium leading-relaxed text-lg">{part.question}</p>
+              <div className="p-4 sm:p-6">
+                <div className="bg-gray-50 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5">
+                  <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-2 sm:mb-3">Câu hỏi</p>
+                  <p className="text-gray-800 font-medium leading-relaxed text-sm sm:text-lg">{part.question}</p>
                   {part.bullets.length > 0 && (
-                    <ul className="mt-4 space-y-1.5">
+                    <ul className="mt-3 sm:mt-4 space-y-1.5">
                       {part.bullets.map(b => (
-                        <li key={b} className="flex items-start gap-2 text-gray-600 text-sm">
-                          <span className="text-indigo-400 mt-0.5">•</span>
+                        <li key={b} className="flex items-start gap-2 text-gray-600 text-xs sm:text-sm">
+                          <span className="text-indigo-400 mt-0.5 shrink-0">•</span>
                           {b}
                         </li>
                       ))}
@@ -461,20 +459,20 @@ export default function TestPage() {
                   )}
                 </div>
 
-                <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-6">
-                  <span className="text-amber-500">💡</span>
-                  <p className="text-sm text-amber-800">{part.tips}</p>
+                <div className="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-xl px-3 sm:px-4 py-3 mb-4 sm:mb-6">
+                  <span className="text-amber-500 shrink-0">💡</span>
+                  <p className="text-xs sm:text-sm text-amber-800">{part.tips}</p>
                 </div>
 
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm text-gray-500 mb-4">
                   <span>⏱️ Thời gian: <strong className="text-indigo-700">{formatTime(part.duration)}</strong></span>
-                  <span>{part.type === 'speaking' ? '🎙️ Trả lời bằng lời nói' : '⌨️ Trả lời bằng văn bản'}</span>
+                  <span>{part.type === 'speaking' ? '🎙️ Lời nói' : '⌨️ Văn bản'}</span>
                 </div>
 
                 {part.type === 'speaking' ? (
                   <button
                     onClick={startRecording}
-                    className="w-full bg-red-500 hover:bg-red-600 text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-3"
+                    className="w-full bg-red-500 hover:bg-red-600 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-3"
                   >
                     <span className="w-4 h-4 bg-white rounded-full animate-pulse" />
                     Bắt đầu ghi âm
@@ -482,7 +480,7 @@ export default function TestPage() {
                 ) : (
                   <button
                     onClick={startWriting}
-                    className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-3"
+                    className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-3"
                   >
                     <span>✍️</span>
                     Bắt đầu viết
@@ -498,37 +496,37 @@ export default function TestPage() {
           <div className="fade-in">
             <ProgressSteps current={partIndex} />
             <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 overflow-hidden">
-              <div className="bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-4 flex items-center gap-3">
-                <span className="text-3xl">{part.icon}</span>
-                <div>
+              <div className="bg-gradient-to-r from-indigo-600 to-blue-600 px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 sm:gap-3">
+                <span className="text-xl sm:text-3xl shrink-0">{part.icon}</span>
+                <div className="min-w-0 flex-1">
                   <p className="text-indigo-200 text-xs">Part {part.id} / {PARTS.length}</p>
-                  <h2 className="text-white font-bold text-xl">{part.title}</h2>
+                  <h2 className="text-white font-bold text-sm sm:text-xl leading-tight truncate">{part.title}</h2>
                 </div>
                 {isRecording && (
-                  <div className="ml-auto flex items-center gap-2 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                  <div className="ml-auto flex items-center gap-1.5 bg-red-500 text-white text-xs font-bold px-2.5 py-1.5 rounded-full shrink-0">
                     <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
                     REC
                   </div>
                 )}
               </div>
 
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 {/* Question reminder */}
-                <div className="bg-gray-50 rounded-xl p-4 mb-5">
-                  <p className="text-gray-700 text-sm leading-relaxed">{part.question}</p>
+                <div className="bg-gray-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-5">
+                  <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">{part.question}</p>
                 </div>
 
                 {part.type === 'speaking' ? (
                   <div className="text-center">
                     <CircleTimer timeLeft={timeLeft} total={part.duration} />
-                    <p className="text-gray-500 text-sm mt-2 mb-6">
+                    <p className="text-gray-500 text-sm mt-2 mb-4 sm:mb-6">
                       {isRecording ? 'Đang ghi âm... Hãy nói tự nhiên' : 'Chuẩn bị...'}
                     </p>
                     <button
                       onClick={stopRecording}
-                      className="pulse-recording bg-red-500 hover:bg-red-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-all duration-200 shadow-lg flex items-center gap-3 mx-auto"
+                      className="pulse-recording w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold px-8 py-3.5 sm:py-4 rounded-xl text-base sm:text-lg transition-all duration-200 shadow-lg flex items-center justify-center gap-3 mx-auto"
                     >
-                      <span className="w-4 h-4 bg-white rounded-sm" />
+                      <span className="w-4 h-4 bg-white rounded-sm shrink-0" />
                       Dừng ghi âm sớm
                     </button>
                   </div>
@@ -547,12 +545,12 @@ export default function TestPage() {
                       value={writingText}
                       onChange={e => setWritingText(e.target.value)}
                       placeholder="Bắt đầu viết câu trả lời của bạn ở đây..."
-                      className="w-full h-48 px-4 py-3 border-2 border-indigo-200 rounded-xl resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 text-gray-800 leading-relaxed text-base"
+                      className="w-full h-44 sm:h-48 px-3 sm:px-4 py-2.5 sm:py-3 border-2 border-indigo-200 rounded-xl resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 text-gray-800 leading-relaxed text-sm sm:text-base"
                     />
-                    <div className="mt-4 flex gap-3">
+                    <div className="mt-3 sm:mt-4 flex gap-3">
                       <button
                         onClick={handleFinishWriting}
-                        className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2"
+                        className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
                       >
                         ✓ Nộp bài viết
                       </button>
@@ -573,21 +571,21 @@ export default function TestPage() {
         {phase === 'done' && (
           <div className="fade-in">
             <ProgressSteps current={partIndex} />
-            <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-8 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-5 sm:p-8 text-center">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                <svg className="w-7 h-7 sm:w-8 sm:h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
+              <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1.5 sm:mb-2">
                 {part.type === 'speaking' ? 'Đã lưu bài nói!' : 'Đã lưu bài viết!'}
               </h3>
-              <p className="text-gray-500 mb-2">
+              <p className="text-sm text-gray-500 mb-2">
                 <strong>Part {part.id} – {part.title}</strong> hoàn thành.
               </p>
 
               {/* Upload status indicator */}
-              <div className="flex items-center justify-center gap-2 text-sm mb-6">
+              <div className="flex items-center justify-center gap-2 text-xs sm:text-sm mb-4 sm:mb-6">
                 {uploadStatus[part.id] === 'uploading' && (
                   <span className="flex items-center gap-1.5 text-blue-600">
                     <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
@@ -601,7 +599,7 @@ export default function TestPage() {
                   <span className="text-green-600">✓ Đã lưu kết quả</span>
                 )}
                 {uploadStatus[part.id] === 'error' && (
-                  <span className="text-red-500">⚠️ Lưu kết quả thất bại – dữ liệu vẫn an toàn</span>
+                  <span className="text-red-500">⚠️ Lưu thất bại – dữ liệu vẫn an toàn</span>
                 )}
                 {!uploadStatus[part.id] && (
                   <span className="text-gray-400">Đang chuẩn bị lưu kết quả...</span>
@@ -611,16 +609,17 @@ export default function TestPage() {
               {partIndex < PARTS.length - 1 ? (
                 <button
                   onClick={handleNext}
-                  className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 shadow-md"
+                  className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md flex flex-col items-center leading-tight"
                 >
-                  Tiếp theo: Part {part.id + 1} – {PARTS[partIndex + 1].title} →
+                  <span className="text-xs sm:text-sm text-indigo-200 font-medium">Tiếp theo →</span>
+                  <span className="text-sm sm:text-lg">Part {part.id + 1} – {PARTS[partIndex + 1].title}</span>
                 </button>
               ) : (
                 <button
                   onClick={handleNext}
-                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 shadow-md"
+                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md"
                 >
-                  Hoàn thành bài thi
+                  🎉 Hoàn thành bài thi
                 </button>
               )}
             </div>

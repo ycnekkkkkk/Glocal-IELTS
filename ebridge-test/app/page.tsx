@@ -68,7 +68,7 @@ export default function RegistrationPage() {
   }
 
   const inputCls = (field: keyof FormData) =>
-    `w-full px-4 py-3 rounded-xl border-2 bg-white text-gray-800 placeholder-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 ${
+    `w-full px-3 py-2.5 sm:px-4 sm:py-3 text-sm sm:text-base rounded-lg sm:rounded-xl border bg-white text-gray-800 placeholder-gray-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-300 ${
       errors[field]
         ? 'border-red-400 focus:border-red-400'
         : 'border-gray-200 focus:border-indigo-500'
@@ -78,34 +78,34 @@ export default function RegistrationPage() {
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-white border-b border-indigo-100 shadow-sm">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center gap-3">
-          <div className="flex items-center gap-0">
-            <img src="/logo-ag.png" alt="Logo AG" className="h-10 w-auto object-contain" />
-            <img src="/logo-gi.png" alt="Logo GI" className="h-10 w-auto object-contain" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-0 shrink-0">
+            <img src="/logo-ag.png" alt="Logo AG" className="h-8 sm:h-10 w-auto object-contain" />
+            <img src="/logo-gi.png" alt="Logo GI" className="h-8 sm:h-10 w-auto object-contain" />
           </div>
-          <div>
-            <h1 className="text-lg font-bold text-indigo-900 leading-none">Glocal IELTS E-Bridge Test</h1>
+          <div className="min-w-0">
+            <h1 className="text-sm sm:text-lg font-bold text-indigo-900 leading-tight">Glocal IELTS E-Bridge Test</h1>
             <p className="text-xs text-indigo-400 mt-0.5">Speaking & Writing Assessment</p>
           </div>
         </div>
       </header>
 
-      <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
+      <main className="flex-1 max-w-4xl mx-auto w-full px-3 sm:px-4 py-4 sm:py-8">
         {/* Hero */}
-        <div className="text-center mb-8 fade-in">
-          <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 text-sm font-medium px-4 py-2 rounded-full mb-4">
-            <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
+        <div className="text-center mb-6 sm:mb-8 fade-in">
+          <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-3 sm:mb-4">
+            <span className="w-2 h-2 bg-indigo-500 rounded-full shrink-0"></span>
             Bài kiểm tra Tiếng Anh E-Bridge
           </div>
-          <h2 className="text-3xl font-bold text-indigo-900 mb-3">Điền thông tin thí sinh</h2>
-          <p className="text-gray-500 max-w-xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-indigo-900 mb-2 sm:mb-3">Điền thông tin thí sinh</h2>
+          <p className="text-sm text-gray-500 max-w-xl mx-auto">
             Thông tin của bạn sẽ được bảo mật và chỉ dùng để liên hệ sau bài kiểm tra.
             Vui lòng điền đầy đủ và chính xác.
           </p>
         </div>
 
         {/* Test Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8 fade-in">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-3 mb-6 sm:mb-8 fade-in">
           {[
             { part: 1, name: 'Self Intro', time: '1 phút', icon: '🎤' },
             { part: 2, name: 'Cultural Sharing', time: '1.5 phút', icon: '🌏' },
@@ -123,15 +123,15 @@ export default function RegistrationPage() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-6 md:p-8 fade-in">
-          <h3 className="text-xl font-bold text-gray-800 mb-6 pb-4 border-b border-gray-100">
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-4 sm:p-6 md:p-8 fade-in">
+          <h3 className="text-base sm:text-xl font-bold text-gray-800 mb-4 pb-3 border-b border-gray-100">
             Thông tin cá nhân
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5">
             {/* Full Name */}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <div className="col-span-2">
+              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
                 Họ và tên <span className="text-red-500">*</span>
               </label>
               <input
@@ -146,7 +146,7 @@ export default function RegistrationPage() {
 
             {/* Phone */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
                 Số điện thoại <span className="text-red-500">*</span>
               </label>
               <input
@@ -161,8 +161,8 @@ export default function RegistrationPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Gmail / Email <span className="text-red-500">*</span>
+              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
+                Email <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -176,8 +176,8 @@ export default function RegistrationPage() {
 
             {/* DOB */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Ngày tháng năm sinh <span className="text-red-500">*</span>
+              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
+                Ngày sinh <span className="text-red-500">*</span>
               </label>
               <input
                 type="date"
@@ -191,23 +191,23 @@ export default function RegistrationPage() {
 
             {/* Hometown */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Quê quán / Tỉnh thành <span className="text-red-500">*</span>
+              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
+                Tỉnh / Thành <span className="text-red-500">*</span>
               </label>
               <select
                 value={form.hometown}
                 onChange={e => set('hometown', e.target.value)}
                 className={inputCls('hometown')}
               >
-                <option value="">-- Chọn tỉnh/thành --</option>
+                <option value="">-- Chọn --</option>
                 {provinces.map(p => <option key={p} value={p}>{p}</option>)}
               </select>
               {errors.hometown && <p className="text-red-500 text-xs mt-1">{errors.hometown}</p>}
             </div>
 
             {/* Occupation */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+            <div className="col-span-2 sm:col-span-1">
+              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
                 Nghề nghiệp <span className="text-red-500">*</span>
               </label>
               <select
@@ -215,7 +215,7 @@ export default function RegistrationPage() {
                 onChange={e => set('occupation', e.target.value)}
                 className={inputCls('occupation')}
               >
-                <option value="">-- Chọn nghề nghiệp --</option>
+                <option value="">-- Chọn --</option>
                 <option value="Học sinh / Sinh viên">Học sinh / Sinh viên</option>
                 <option value="Nhân viên / Viên chức">Nhân viên / Viên chức</option>
                 <option value="Doanh nhân">Doanh nhân</option>
@@ -226,9 +226,9 @@ export default function RegistrationPage() {
             </div>
 
             {/* Organization */}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Trường / Tổ chức <span className="text-gray-400 font-normal">(không bắt buộc)</span>
+            <div className="col-span-2 sm:col-span-1">
+              <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
+                Trường / Tổ chức <span className="text-gray-400 font-normal text-xs">(không bắt buộc)</span>
               </label>
               <input
                 type="text"
@@ -241,15 +241,15 @@ export default function RegistrationPage() {
           </div>
 
           {/* Consent */}
-          <div className="mt-6 p-4 bg-indigo-50 rounded-xl border border-indigo-100">
-            <label className="flex items-start gap-3 cursor-pointer">
+          <div className="mt-4 sm:mt-6 p-3 sm:p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+            <label className="flex items-start gap-2.5 cursor-pointer">
               <input
                 type="checkbox"
                 checked={agreed}
                 onChange={e => setAgreed(e.target.checked)}
-                className="mt-0.5 w-5 h-5 rounded border-indigo-300 text-indigo-600 accent-indigo-600 cursor-pointer"
+                className="mt-0.5 w-4 h-4 sm:w-5 sm:h-5 rounded border-indigo-300 text-indigo-600 accent-indigo-600 cursor-pointer shrink-0"
               />
-              <span className="text-sm text-gray-700 leading-relaxed">
+              <span className="text-xs sm:text-sm text-gray-700 leading-relaxed">
                 Tôi đồng ý cho <strong>E-Bridge Program</strong> lưu trữ thông tin cá nhân,
                 bài nói và bài viết của tôi để phục vụ mục đích đánh giá và liên hệ sau kiểm tra.
                 Thông tin sẽ được bảo mật và không chia sẻ cho bên thứ ba.
@@ -261,7 +261,7 @@ export default function RegistrationPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="mt-6 w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl active:scale-[0.98] flex items-center justify-center gap-2"
+            className="mt-4 sm:mt-6 w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl active:scale-[0.98] flex items-center justify-center gap-2"
           >
             {submitting ? (
               <>
