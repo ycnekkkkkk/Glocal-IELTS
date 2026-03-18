@@ -4,18 +4,13 @@ import { useState, FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { CandidateInfo } from '@/lib/types'
 
-const provinces = [
-  'An Giang', 'Bà Rịa - Vũng Tàu', 'Bắc Giang', 'Bắc Kạn', 'Bạc Liêu', 'Bắc Ninh',
-  'Bến Tre', 'Bình Định', 'Bình Dương', 'Bình Phước', 'Bình Thuận', 'Cà Mau',
-  'Cần Thơ', 'Cao Bằng', 'Đà Nẵng', 'Đắk Lắk', 'Đắk Nông', 'Điện Biên',
-  'Đồng Nai', 'Đồng Tháp', 'Gia Lai', 'Hà Giang', 'Hà Nam', 'Hà Nội',
-  'Hà Tĩnh', 'Hải Dương', 'Hải Phòng', 'Hậu Giang', 'Hòa Bình', 'Hưng Yên',
-  'Khánh Hòa', 'Kiên Giang', 'Kon Tum', 'Lai Châu', 'Lâm Đồng', 'Lạng Sơn',
-  'Lào Cai', 'Long An', 'Nam Định', 'Nghệ An', 'Ninh Bình', 'Ninh Thuận',
-  'Phú Thọ', 'Phú Yên', 'Quảng Bình', 'Quảng Nam', 'Quảng Ngãi', 'Quảng Ninh',
-  'Quảng Trị', 'Sóc Trăng', 'Sơn La', 'Tây Ninh', 'Thái Bình', 'Thái Nguyên',
-  'Thanh Hóa', 'Thừa Thiên Huế', 'Tiền Giang', 'TP. Hồ Chí Minh', 'Trà Vinh',
-  'Tuyên Quang', 'Vĩnh Long', 'Vĩnh Phúc', 'Yên Bái',
+const countries = [
+  'Mongolia', 'Vietnam', 'United States', 'United Kingdom', 'Australia', 'Canada',
+  'Japan', 'South Korea', 'China', 'India', 'Thailand', 'Indonesia',
+  'Philippines', 'Malaysia', 'Singapore', 'Germany', 'France', 'Netherlands',
+  'Spain', 'Italy', 'Russia', 'Brazil', 'Mexico', 'Argentina',
+  'South Africa', 'Egypt', 'Nigeria', 'Kenya', 'Saudi Arabia', 'UAE',
+  'Other',
 ]
 
 type FormData = Omit<CandidateInfo, 'submittedAt'>
@@ -43,15 +38,15 @@ export default function RegistrationPage() {
 
   const validate = (): FormErrors => {
     const e: FormErrors = {}
-    if (!form.fullName.trim()) e.fullName = 'Vui lòng nhập họ và tên'
-    if (!form.phone.trim()) e.phone = 'Vui lòng nhập số điện thoại'
-    else if (!/^(0|\+84)[0-9]{9,10}$/.test(form.phone.replace(/\s/g, '')))
-      e.phone = 'Số điện thoại không hợp lệ'
-    if (!form.email.trim()) e.email = 'Vui lòng nhập email'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Email không hợp lệ'
-    if (!form.dob) e.dob = 'Vui lòng chọn ngày sinh'
-    if (!form.hometown) e.hometown = 'Vui lòng chọn tỉnh/thành'
-    if (!form.occupation) e.occupation = 'Vui lòng chọn nghề nghiệp'
+    if (!form.fullName.trim()) e.fullName = 'Please enter your full name'
+    if (!form.phone.trim()) e.phone = 'Please enter your phone number'
+    else if (!/^[\d\s+()-]{9,15}$/.test(form.phone.replace(/\s/g, '')))
+      e.phone = 'Invalid phone number'
+    if (!form.email.trim()) e.email = 'Please enter your email'
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Invalid email'
+    if (!form.dob) e.dob = 'Please select your date of birth'
+    if (!form.hometown) e.hometown = 'Please select your country/region'
+    if (!form.occupation) e.occupation = 'Please select your occupation'
     return e
   }
 
@@ -59,7 +54,7 @@ export default function RegistrationPage() {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length > 0) { setErrors(errs); return }
-    if (!agreed) { alert('Vui lòng đồng ý với điều khoản trước khi tiếp tục.'); return }
+    if (!agreed) { alert('Please agree to the terms before continuing.'); return }
 
     setSubmitting(true)
     const info: CandidateInfo = { ...form, submittedAt: new Date().toISOString() }
@@ -95,23 +90,23 @@ export default function RegistrationPage() {
         <div className="text-center mb-6 sm:mb-8 fade-in">
           <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-700 text-xs sm:text-sm font-medium px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-3 sm:mb-4">
             <span className="w-2 h-2 bg-indigo-500 rounded-full shrink-0"></span>
-            Bài kiểm tra Tiếng Anh E-Bridge
+            E-Bridge English Assessment
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-indigo-900 mb-2 sm:mb-3">Điền thông tin thí sinh</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-indigo-900 mb-2 sm:mb-3">Candidate Information</h2>
           <p className="text-sm text-gray-500 max-w-xl mx-auto">
-            Thông tin của bạn sẽ được bảo mật và chỉ dùng để liên hệ sau bài kiểm tra.
-            Vui lòng điền đầy đủ và chính xác.
+            Your information will be kept confidential and used only for post-test contact.
+            Please fill in completely and accurately.
           </p>
         </div>
 
         {/* Test Overview */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-3 mb-6 sm:mb-8 fade-in">
           {[
-            { part: 1, name: 'Self Intro', time: '1 phút', icon: '🎤' },
-            { part: 2, name: 'Cultural Sharing', time: '1.5 phút', icon: '🌏' },
-            { part: 3, name: 'Discussion', time: '1.5 phút', icon: '💬' },
-            { part: 4, name: 'Leadership', time: '1.5 phút', icon: '🏆' },
-            { part: 5, name: 'Writing', time: '8 phút', icon: '✍️' },
+            { part: 1, name: 'Self Intro', time: '1 min', icon: '🎤' },
+            { part: 2, name: 'Cultural Sharing', time: '1.5 min', icon: '🌏' },
+            { part: 3, name: 'Discussion', time: '1.5 min', icon: '💬' },
+            { part: 4, name: 'Leadership', time: '1.5 min', icon: '🏆' },
+            { part: 5, name: 'Writing', time: '8 min', icon: '✍️' },
           ].map(p => (
             <div key={p.part} className="bg-white rounded-xl p-3 text-center border border-indigo-100 shadow-sm">
               <div className="text-2xl mb-1">{p.icon}</div>
@@ -125,20 +120,20 @@ export default function RegistrationPage() {
         {/* Form */}
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-4 sm:p-6 md:p-8 fade-in">
           <h3 className="text-base sm:text-xl font-bold text-gray-800 mb-4 pb-3 border-b border-gray-100">
-            Thông tin cá nhân
+            Personal Information
           </h3>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-5">
             {/* Full Name */}
             <div className="col-span-2">
               <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
-                Họ và tên <span className="text-red-500">*</span>
+                Full Name <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={form.fullName}
                 onChange={e => set('fullName', e.target.value)}
-                placeholder="Nguyễn Văn A"
+                placeholder="John Smith"
                 className={inputCls('fullName')}
               />
               {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
@@ -147,13 +142,13 @@ export default function RegistrationPage() {
             {/* Phone */}
             <div>
               <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
-                Số điện thoại <span className="text-red-500">*</span>
+                Phone Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="tel"
                 value={form.phone}
                 onChange={e => set('phone', e.target.value)}
-                placeholder="0901 234 567"
+                placeholder="+1 234 567 8900"
                 className={inputCls('phone')}
               />
               {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
@@ -177,7 +172,7 @@ export default function RegistrationPage() {
             {/* DOB */}
             <div>
               <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
-                Ngày sinh <span className="text-red-500">*</span>
+                Date of Birth <span className="text-red-500">*</span>
               </label>
               <input
                 type="date"
@@ -189,18 +184,18 @@ export default function RegistrationPage() {
               {errors.dob && <p className="text-red-500 text-xs mt-1">{errors.dob}</p>}
             </div>
 
-            {/* Hometown */}
+            {/* Country/Region */}
             <div>
               <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
-                Tỉnh / Thành <span className="text-red-500">*</span>
+                Country / Region <span className="text-red-500">*</span>
               </label>
               <select
                 value={form.hometown}
                 onChange={e => set('hometown', e.target.value)}
                 className={inputCls('hometown')}
               >
-                <option value="">-- Chọn --</option>
-                {provinces.map(p => <option key={p} value={p}>{p}</option>)}
+                <option value="">-- Select --</option>
+                {countries.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
               {errors.hometown && <p className="text-red-500 text-xs mt-1">{errors.hometown}</p>}
             </div>
@@ -208,19 +203,19 @@ export default function RegistrationPage() {
             {/* Occupation */}
             <div className="col-span-2 sm:col-span-1">
               <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
-                Nghề nghiệp <span className="text-red-500">*</span>
+                Occupation <span className="text-red-500">*</span>
               </label>
               <select
                 value={form.occupation}
                 onChange={e => set('occupation', e.target.value)}
                 className={inputCls('occupation')}
               >
-                <option value="">-- Chọn --</option>
-                <option value="Học sinh / Sinh viên">Học sinh / Sinh viên</option>
-                <option value="Nhân viên / Viên chức">Nhân viên / Viên chức</option>
-                <option value="Doanh nhân">Doanh nhân</option>
-                <option value="Giáo viên / Giảng viên">Giáo viên / Giảng viên</option>
-                <option value="Khác">Khác</option>
+                <option value="">-- Select --</option>
+                <option value="Student">Student</option>
+                <option value="Employee">Employee</option>
+                <option value="Entrepreneur">Entrepreneur</option>
+                <option value="Teacher / Lecturer">Teacher / Lecturer</option>
+                <option value="Other">Other</option>
               </select>
               {errors.occupation && <p className="text-red-500 text-xs mt-1">{errors.occupation}</p>}
             </div>
@@ -228,13 +223,13 @@ export default function RegistrationPage() {
             {/* Organization */}
             <div className="col-span-2 sm:col-span-1">
               <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">
-                Trường / Tổ chức <span className="text-gray-400 font-normal text-xs">(không bắt buộc)</span>
+                School / Organization <span className="text-gray-400 font-normal text-xs">(optional)</span>
               </label>
               <input
                 type="text"
                 value={form.organization}
                 onChange={e => set('organization', e.target.value)}
-                placeholder="Tên trường hoặc nơi làm việc"
+                placeholder="School or workplace name"
                 className={inputCls('organization')}
               />
             </div>
@@ -250,9 +245,9 @@ export default function RegistrationPage() {
                 className="mt-0.5 w-4 h-4 sm:w-5 sm:h-5 rounded border-indigo-300 text-indigo-600 accent-indigo-600 cursor-pointer shrink-0"
               />
               <span className="text-xs sm:text-sm text-gray-700 leading-relaxed">
-                Tôi đồng ý cho <strong>E-Bridge Program</strong> lưu trữ thông tin cá nhân,
-                bài nói và bài viết của tôi để phục vụ mục đích đánh giá và liên hệ sau kiểm tra.
-                Thông tin sẽ được bảo mật và không chia sẻ cho bên thứ ba.
+                I agree to allow the <strong>E-Bridge Program</strong> to store my personal information,
+                recordings and written responses for assessment purposes and post-test contact.
+                My information will be kept confidential and not shared with third parties.
               </span>
             </label>
           </div>
@@ -269,11 +264,11 @@ export default function RegistrationPage() {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                Đang xử lý...
+                Processing...
               </>
             ) : (
               <>
-                Bắt đầu bài kiểm tra
+                Start Test
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>

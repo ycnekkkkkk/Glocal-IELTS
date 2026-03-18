@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Glocal IELTS E-Bridge Test',
-  description: 'Glocal IELTS E-Bridge Test — Bài kiểm tra Nói và Viết Tiếng Anh',
+  description: 'Glocal IELTS E-Bridge Test — Speaking and Writing Assessment',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

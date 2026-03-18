@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const type = formData.get('type') as string
 
     if (!folderId || !partId) {
-      return NextResponse.json({ success: false, error: 'Thiếu thông tin' }, { status: 400 })
+      return NextResponse.json({ success: false, error: 'Missing information' }, { status: 400 })
     }
 
     if (type === 'audio') {
@@ -44,6 +44,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Upload error:', error)
-    return NextResponse.json({ success: false, error: 'Upload thất bại' }, { status: 500 })
+    return NextResponse.json({ success: false, error: 'Upload failed' }, { status: 500 })
   }
 }

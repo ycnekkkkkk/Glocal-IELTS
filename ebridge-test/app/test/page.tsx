@@ -8,7 +8,6 @@ const PARTS = [
   {
     id: 1,
     title: 'Self Introduction',
-    titleVi: 'Giới thiệu bản thân',
     duration: 60,
     type: 'speaking' as const,
     icon: '🎤',
@@ -21,12 +20,11 @@ const PARTS = [
       'Why you joined E-Bridge',
       'What you want to learn from Vietnamese and Mongolian participants',
     ],
-    tips: 'Nói liên tục, tự tin. Thời gian: 1 phút.',
+    tips: 'Speak continuously and confidently. Time: 1 minute.',
   },
   {
     id: 2,
     title: 'Cultural Sharing',
-    titleVi: 'Chia sẻ văn hóa',
     duration: 90,
     type: 'speaking' as const,
     icon: '🌏',
@@ -34,12 +32,11 @@ const PARTS = [
     question:
       'If you meet a participant from Mongolia/Vietnam for the first time, what cultural experience from your country would you like to introduce? Explain why it represents your culture.',
     bullets: ['Traditional food', 'Festivals', 'Lifestyle', 'Hospitality'],
-    tips: 'Mô tả chi tiết, giải thích tại sao đó là văn hóa đặc trưng. Thời gian: 1 phút 30 giây.',
+    tips: 'Describe in detail and explain why it represents your culture. Time: 1 minute 30 seconds.',
   },
   {
     id: 3,
     title: 'Intercultural Discussion',
-    titleVi: 'Thảo luận giao văn hóa',
     duration: 90,
     type: 'speaking' as const,
     icon: '💬',
@@ -52,12 +49,11 @@ const PARTS = [
       'Traditions',
       'Daily lifestyle',
     ],
-    tips: 'Phân tích sự khác biệt và đưa ra giải pháp tôn trọng. Thời gian: 1 phút 30 giây.',
+    tips: 'Analyze differences and suggest ways to respect them. Time: 1 minute 30 seconds.',
   },
   {
     id: 4,
     title: 'Leadership Scenario',
-    titleVi: 'Tình huống lãnh đạo',
     duration: 90,
     type: 'speaking' as const,
     icon: '🏆',
@@ -65,12 +61,11 @@ const PARTS = [
     question:
       'Imagine you are working in a Vietnam-Mongolia team during the E-Bridge program. Your team must organize a cultural activity. What would you do to communicate effectively and make your team successful?',
     bullets: [],
-    tips: 'Đề xuất các bước cụ thể, thể hiện kỹ năng lãnh đạo. Thời gian: 1 phút 30 giây.',
+    tips: 'Propose specific steps and demonstrate leadership skills. Time: 1 minute 30 seconds.',
   },
   {
     id: 5,
     title: 'Writing Reflection',
-    titleVi: 'Bài viết phản ánh',
     duration: 480,
     type: 'writing' as const,
     icon: '✍️',
@@ -78,7 +73,7 @@ const PARTS = [
     question:
       'Why are international exchange programs like E-Bridge important for young people? Write about cultural understanding and leadership development.',
     bullets: ['120–150 words', 'Paragraph structure: Introduction, Body, Conclusion'],
-    tips: 'Viết từ 120 đến 150 từ. Thời gian: 8 phút.',
+    tips: 'Write 120 to 150 words. Time: 8 minutes.',
   },
 ]
 
@@ -305,7 +300,7 @@ export default function TestPage() {
       setPhase('recording')
       startSpeakingTimer(part.duration, stopRecording)
     } catch {
-      alert('Không thể truy cập microphone. Vui lòng cho phép quyền truy cập microphone trong trình duyệt.')
+      alert('Cannot access microphone. Please allow microphone permission in your browser.')
     }
   }, [part.id, part.duration, uploadAudio, startSpeakingTimer, stopRecording])
 
@@ -374,7 +369,7 @@ export default function TestPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <div className="w-12 h-12 rounded-full border-4 border-indigo-200 border-t-indigo-600 animate-spin" />
-        <p className="text-indigo-600 font-medium">Đang khởi tạo bài thi...</p>
+        <p className="text-indigo-600 font-medium">Initializing test...</p>
       </div>
     )
   }
@@ -383,15 +378,15 @@ export default function TestPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-6">
         <div className="text-5xl">⚠️</div>
-        <h2 className="text-xl font-bold text-red-600">Không thể kết nối</h2>
+        <h2 className="text-xl font-bold text-red-600">Connection Failed</h2>
         <p className="text-gray-600 text-center max-w-md">
-          Không thể khởi tạo bài thi. Vui lòng kiểm tra kết nối mạng và thử lại.
+          Unable to initialize the test. Please check your internet connection and try again.
         </p>
         <button
           onClick={() => router.push('/')}
           className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition"
         >
-          Quay lại
+          Go Back
         </button>
       </div>
     )
@@ -425,23 +420,23 @@ export default function TestPage() {
             <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-5 sm:p-8 max-w-xl mx-auto">
               <div className="text-5xl sm:text-6xl mb-3 sm:mb-4">👋</div>
               <h2 className="text-xl sm:text-2xl font-bold text-indigo-900 mb-2">
-                Chào {candidate?.fullName?.split(' ').pop()}!
+                Hello {candidate?.fullName?.split(' ').pop()}!
               </h2>
               <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
-                Bạn sắp bắt đầu bài kiểm tra E-Bridge. Bài thi gồm <strong>4 phần nói</strong> và <strong>1 phần viết</strong>.
+                You are about to start the E-Bridge test. The test includes <strong>4 speaking parts</strong> and <strong>1 writing part</strong>.
               </p>
               <div className="text-left bg-indigo-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 space-y-2 text-xs sm:text-sm text-gray-700">
-                <p className="font-semibold text-indigo-800 mb-1.5 sm:mb-2">Lưu ý quan trọng:</p>
-                <p>🎤 Cho phép trình duyệt truy cập <strong>microphone</strong> khi được hỏi.</p>
-                <p>🔇 Ngồi ở nơi <strong>yên tĩnh</strong>, tránh tiếng ồn xung quanh.</p>
-                <p>⏱️ Hết giờ sẽ <strong>tự động dừng</strong> – bạn không cần bấm nút.</p>
-                <p>📶 Đảm bảo <strong>kết nối internet</strong> ổn định trong suốt bài thi.</p>
+                <p className="font-semibold text-indigo-800 mb-1.5 sm:mb-2">Important notes:</p>
+                <p>🎤 Allow <strong>microphone</strong> access when prompted by your browser.</p>
+                <p>🔇 Sit in a <strong>quiet</strong> place, away from background noise.</p>
+                <p>⏱️ Recording will <strong>stop automatically</strong> when time is up – no need to press any button.</p>
+                <p>📶 Ensure a stable <strong>internet connection</strong> throughout the test.</p>
               </div>
               <button
                 onClick={() => { setPartIndex(0); setPhase('ready') }}
                 className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg"
               >
-                Bắt đầu bài thi →
+                Start Test →
               </button>
             </div>
           </div>
@@ -458,14 +453,13 @@ export default function TestPage() {
                   <div className="min-w-0 flex-1">
                     <p className="text-indigo-200 text-xs font-medium">Part {part.id} / {PARTS.length}</p>
                     <h2 className="text-white font-bold text-sm sm:text-xl leading-tight truncate">{part.title}</h2>
-                    <p className="text-indigo-200 text-xs truncate">{part.titleVi}</p>
                   </div>
                 </div>
               </div>
 
               <div className="p-4 sm:p-6">
                 <div className="bg-gray-50 rounded-xl p-4 sm:p-5 mb-4 sm:mb-5">
-                  <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-2 sm:mb-3">Câu hỏi</p>
+                  <p className="text-xs font-semibold text-indigo-600 uppercase tracking-wide mb-2 sm:mb-3">Question</p>
                   <p className="text-gray-800 font-medium leading-relaxed text-sm sm:text-lg">{part.question}</p>
                   {part.bullets.length > 0 && (
                     <ul className="mt-3 sm:mt-4 space-y-1.5">
@@ -485,8 +479,8 @@ export default function TestPage() {
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm text-gray-500 mb-4">
-                  <span>⏱️ Thời gian: <strong className="text-indigo-700">{formatTime(part.duration)}</strong></span>
-                  <span>{part.type === 'speaking' ? '🎙️ Lời nói' : '⌨️ Văn bản'}</span>
+                  <span>⏱️ Time: <strong className="text-indigo-700">{formatTime(part.duration)}</strong></span>
+                  <span>{part.type === 'speaking' ? '🎙️ Speaking' : '⌨️ Writing'}</span>
                 </div>
 
                 {part.type === 'speaking' ? (
@@ -495,7 +489,7 @@ export default function TestPage() {
                     className="w-full bg-red-500 hover:bg-red-600 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-3"
                   >
                     <span className="w-4 h-4 bg-white rounded-full animate-pulse" />
-                    Bắt đầu ghi âm
+                    Start Recording
                   </button>
                 ) : (
                   <button
@@ -503,7 +497,7 @@ export default function TestPage() {
                     className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-3"
                   >
                     <span>✍️</span>
-                    Bắt đầu viết
+                    Start Writing
                   </button>
                 )}
               </div>
@@ -540,14 +534,14 @@ export default function TestPage() {
                   <div className="text-center">
                     <CircleTimer timeLeft={timeLeft} total={part.duration} />
                     <p className="text-gray-500 text-sm mt-2 mb-4 sm:mb-6">
-                      {isRecording ? 'Đang ghi âm... Hãy nói tự nhiên' : 'Chuẩn bị...'}
+                      {isRecording ? 'Recording... Speak naturally' : 'Preparing...'}
                     </p>
                     <button
                       onClick={stopRecording}
                       className="pulse-recording w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold px-8 py-3.5 sm:py-4 rounded-xl text-base sm:text-lg transition-all duration-200 shadow-lg flex items-center justify-center gap-3 mx-auto"
                     >
                       <span className="w-4 h-4 bg-white rounded-sm shrink-0" />
-                      Dừng ghi âm sớm
+                      Stop Recording Early
                     </button>
                   </div>
                 ) : (
@@ -558,13 +552,13 @@ export default function TestPage() {
                         <p className={`text-2xl font-bold ${wordCount < 120 ? 'text-orange-500' : wordCount > 150 ? 'text-red-500' : 'text-emerald-600'}`}>
                           {wordCount}
                         </p>
-                        <p className="text-xs text-gray-400">từ (120–150)</p>
+                        <p className="text-xs text-gray-400">words (120–150)</p>
                       </div>
                     </div>
                     <textarea
                       value={writingText}
                       onChange={e => setWritingText(e.target.value)}
-                      placeholder="Bắt đầu viết câu trả lời của bạn ở đây..."
+                      placeholder="Start writing your answer here..."
                       className="w-full h-44 sm:h-48 px-3 sm:px-4 py-2.5 sm:py-3 border-2 border-indigo-200 rounded-xl resize-none focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 text-gray-800 leading-relaxed text-sm sm:text-base"
                     />
                     <div className="mt-3 sm:mt-4 flex gap-3">
@@ -572,12 +566,12 @@ export default function TestPage() {
                         onClick={handleFinishWriting}
                         className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
                       >
-                        ✓ Nộp bài viết
+                        ✓ Submit Writing
                       </button>
                     </div>
                     {wordCount > 150 && (
                       <p className="text-red-500 text-xs mt-2 text-center">
-                        ⚠️ Bạn đã vượt quá 150 từ ({wordCount} từ)
+                        ⚠️ You have exceeded 150 words ({wordCount} words)
                       </p>
                     )}
                   </div>
@@ -598,10 +592,10 @@ export default function TestPage() {
                 </svg>
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-1.5 sm:mb-2">
-                {part.type === 'speaking' ? 'Đã lưu bài nói!' : 'Đã lưu bài viết!'}
+                {part.type === 'speaking' ? 'Recording saved!' : 'Writing saved!'}
               </h3>
               <p className="text-sm text-gray-500 mb-2">
-                <strong>Part {part.id} – {part.title}</strong> hoàn thành.
+                <strong>Part {part.id} – {part.title}</strong> completed.
               </p>
 
               {/* Upload status indicator */}
@@ -612,17 +606,17 @@ export default function TestPage() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                     </svg>
-                    Đang lưu kết quả...
+                    Saving results...
                   </span>
                 )}
                 {uploadStatus[part.id] === 'done' && (
-                  <span className="text-green-600">✓ Đã lưu kết quả</span>
+                  <span className="text-green-600">✓ Results saved</span>
                 )}
                 {uploadStatus[part.id] === 'error' && (
-                  <span className="text-red-500">⚠️ Lưu thất bại – dữ liệu vẫn an toàn</span>
+                  <span className="text-red-500">⚠️ Save failed – data is still safe</span>
                 )}
                 {!uploadStatus[part.id] && (
-                  <span className="text-gray-400">Đang chuẩn bị lưu kết quả...</span>
+                  <span className="text-gray-400">Preparing to save results...</span>
                 )}
               </div>
 
@@ -631,7 +625,7 @@ export default function TestPage() {
                   onClick={handleNext}
                   className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-bold py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md flex flex-col items-center leading-tight"
                 >
-                  <span className="text-xs sm:text-sm text-indigo-200 font-medium">Tiếp theo →</span>
+                  <span className="text-xs sm:text-sm text-indigo-200 font-medium">Next →</span>
                   <span className="text-sm sm:text-lg">Part {part.id + 1} – {PARTS[partIndex + 1].title}</span>
                 </button>
               ) : (
@@ -639,7 +633,7 @@ export default function TestPage() {
                   onClick={handleNext}
                   className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-base sm:text-lg py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-md"
                 >
-                  🎉 Hoàn thành bài thi
+                  🎉 Complete Test
                 </button>
               )}
             </div>
@@ -653,9 +647,9 @@ export default function TestPage() {
               <div className="absolute inset-0 rounded-full border-4 border-indigo-600 border-t-transparent animate-spin" />
               <div className="absolute inset-3 rounded-full bg-indigo-50 flex items-center justify-center text-4xl">💾</div>
             </div>
-            <h3 className="text-2xl font-bold text-indigo-900 mb-2">Đang lưu bài thi...</h3>
-            <p className="text-gray-500 mb-1">Bài làm của bạn đang được lưu lại an toàn</p>
-            <p className="text-xs text-gray-400">Vui lòng không tắt trang</p>
+            <h3 className="text-2xl font-bold text-indigo-900 mb-2">Saving your test...</h3>
+            <p className="text-gray-500 mb-1">Your answers are being saved securely</p>
+            <p className="text-xs text-gray-400">Please do not close this page</p>
             <div className="mt-6 flex gap-1.5">
               {[0, 1, 2].map(i => (
                 <div key={i} className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"

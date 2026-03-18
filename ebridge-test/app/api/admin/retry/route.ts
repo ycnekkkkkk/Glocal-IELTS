@@ -34,31 +34,31 @@ function buildEmailHtml(candidateInfo: any, grades: any): string {
     .join('')
 
   return `<!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,sans-serif;">
 <div style="max-width:600px;margin:32px auto;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
   <div style="background:linear-gradient(135deg,#4f46e5,#2563eb);padding:32px 32px 24px;text-align:center;">
-    <h1 style="color:#fff;margin:0;font-size:22px;">Kết quả bài thi</h1>
+    <h1 style="color:#fff;margin:0;font-size:22px;">Test Results</h1>
     <p style="color:#c7d2fe;margin:6px 0 0;">Glocal IELTS E-Bridge Test</p>
   </div>
   <div style="padding:28px 32px;">
-    <p style="color:#374151;font-size:15px;">Xin chào <strong>${candidateInfo.fullName}</strong>,</p>
-    <p style="color:#6b7280;font-size:14px;line-height:1.6;">Bài thi của bạn đã được chấm điểm bởi AI. Dưới đây là kết quả chi tiết.</p>
+    <p style="color:#374151;font-size:15px;">Hello <strong>${candidateInfo.fullName}</strong>,</p>
+    <p style="color:#6b7280;font-size:14px;line-height:1.6;">Your test has been graded by AI. Below are your detailed results.</p>
     <div style="background:#eef2ff;border-radius:12px;padding:20px 24px;margin:20px 0;text-align:center;">
       <div style="font-size:42px;font-weight:700;color:#3730a3;">${total}<span style="font-size:20px;color:#6366f1;">/100</span></div>
-      <div style="font-size:16px;color:#4f46e5;font-weight:600;margin-top:4px;">Trình độ CEFR: ${cefr}</div>
+      <div style="font-size:16px;color:#4f46e5;font-weight:600;margin-top:4px;">CEFR Level: ${cefr}</div>
     </div>
     <table style="width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden;border:1px solid #e0e7ff;">
       <thead><tr style="background:#f5f3ff;">
-        <th style="padding:10px 12px;text-align:left;font-size:13px;color:#6b7280;">Phần thi</th>
-        <th style="padding:10px 12px;text-align:center;font-size:13px;color:#6b7280;">Điểm</th>
+        <th style="padding:10px 12px;text-align:left;font-size:13px;color:#6b7280;">Part</th>
+        <th style="padding:10px 12px;text-align:center;font-size:13px;color:#6b7280;">Score</th>
       </tr></thead>
       <tbody>${partRows}</tbody>
     </table>
-    ${summary ? `<div style="margin-top:20px;"><p style="font-weight:600;color:#374151;margin:0 0 6px;">Nhận xét tổng quát:</p><p style="color:#6b7280;font-size:14px;line-height:1.6;margin:0;">${summary}</p></div>` : ''}
-    ${strengths ? `<div style="margin-top:14px;"><p style="font-weight:600;color:#059669;margin:0 0 6px;">✅ Điểm mạnh:</p><p style="color:#6b7280;font-size:14px;line-height:1.6;margin:0;">${strengths}</p></div>` : ''}
-    ${improvements ? `<div style="margin-top:14px;"><p style="font-weight:600;color:#d97706;margin:0 0 6px;">📈 Cần cải thiện:</p><p style="color:#6b7280;font-size:14px;line-height:1.6;margin:0;">${improvements}</p></div>` : ''}
-    <p style="font-size:13px;color:#9ca3af;margin-top:24px;">File PDF kết quả chi tiết được đính kèm trong email này.</p>
+    ${summary ? `<div style="margin-top:20px;"><p style="font-weight:600;color:#374151;margin:0 0 6px;">Overall Feedback:</p><p style="color:#6b7280;font-size:14px;line-height:1.6;margin:0;">${summary}</p></div>` : ''}
+    ${strengths ? `<div style="margin-top:14px;"><p style="font-weight:600;color:#059669;margin:0 0 6px;">✅ Strengths:</p><p style="color:#6b7280;font-size:14px;line-height:1.6;margin:0;">${strengths}</p></div>` : ''}
+    ${improvements ? `<div style="margin-top:14px;"><p style="font-weight:600;color:#d97706;margin:0 0 6px;">📈 Areas for Improvement:</p><p style="color:#6b7280;font-size:14px;line-height:1.6;margin:0;">${improvements}</p></div>` : ''}
+    <p style="font-size:13px;color:#9ca3af;margin-top:24px;">A detailed PDF of your results is attached to this email.</p>
   </div>
   <div style="background:#f9fafb;padding:16px 32px;text-align:center;border-top:1px solid #e5e7eb;">
     <p style="color:#9ca3af;font-size:12px;margin:0;">© 2026 Glocal IELTS E-Bridge · Vietnam – Mongolia Exchange</p>
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
       await transporter.sendMail({
         from: `"Glocal IELTS E-Bridge" <${process.env.GMAIL_USER}>`,
         to: recipientEmail,
-        subject: `Kết quả bài thi Glocal IELTS E-Bridge Test — ${candidateInfo.fullName}`,
+        subject: `Glocal IELTS E-Bridge Test Results — ${candidateInfo.fullName}`,
         html: buildEmailHtml(candidateInfo, grades),
         attachments: [{ filename: 'ket-qua-cham-diem.pdf', content: pdfBuffer }],
       })

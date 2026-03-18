@@ -29,12 +29,12 @@ interface GradeResult {
 }
 
 const CEFR_CONFIG: Record<string, { color: string; bg: string; label: string }> = {
-  A1: { color: 'text-gray-600', bg: 'bg-gray-100', label: 'Sơ cấp' },
-  A2: { color: 'text-blue-600', bg: 'bg-blue-100', label: 'Cơ bản' },
-  B1: { color: 'text-indigo-600', bg: 'bg-indigo-100', label: 'Trung cấp' },
-  B2: { color: 'text-violet-600', bg: 'bg-violet-100', label: 'Trung cấp cao' },
-  C1: { color: 'text-emerald-600', bg: 'bg-emerald-100', label: 'Nâng cao' },
-  C2: { color: 'text-rose-600', bg: 'bg-rose-100', label: 'Thành thạo' },
+  A1: { color: 'text-gray-600', bg: 'bg-gray-100', label: 'Beginner' },
+  A2: { color: 'text-blue-600', bg: 'bg-blue-100', label: 'Elementary' },
+  B1: { color: 'text-indigo-600', bg: 'bg-indigo-100', label: 'Intermediate' },
+  B2: { color: 'text-violet-600', bg: 'bg-violet-100', label: 'Upper Intermediate' },
+  C1: { color: 'text-emerald-600', bg: 'bg-emerald-100', label: 'Advanced' },
+  C2: { color: 'text-rose-600', bg: 'bg-rose-100', label: 'Proficient' },
 }
 
 function ScoreBar({ label, score, max = 5 }: { label: string; score: number; max?: number }) {
@@ -73,14 +73,14 @@ function PartCard({
         </div>
         <div className="text-right">
           <p className={`text-2xl font-bold ${color}`}>{total}</p>
-          <p className="text-xs text-gray-400">/20 điểm</p>
+          <p className="text-xs text-gray-400">/20 pts</p>
         </div>
       </div>
       <div className="px-5 py-4 space-y-3">
         {criteria.map(c => <ScoreBar key={c.label} label={c.label} score={c.score} />)}
         {feedback && (
           <div className="mt-3 pt-3 border-t border-gray-100">
-            <p className="text-xs font-semibold text-gray-500 mb-1">💬 Nhận xét:</p>
+            <p className="text-xs font-semibold text-gray-500 mb-1">💬 Feedback:</p>
             <p className="text-sm text-gray-700 leading-relaxed">{feedback}</p>
           </div>
         )}
@@ -124,7 +124,7 @@ export default function ResultPage() {
       setGrades(JSON.parse(raw))
       setLoading(false)
     } catch {
-      setError('Không thể đọc kết quả chấm điểm')
+      setError('Unable to read grading results')
       setLoading(false)
     }
   }, [router])
@@ -137,8 +137,8 @@ export default function ResultPage() {
         <div className="absolute inset-3 rounded-full bg-indigo-50 flex items-center justify-center text-2xl">🤖</div>
       </div>
       <div className="text-center">
-        <p className="text-lg font-bold text-indigo-900">Hệ thống đang chấm điểm...</p>
-        <p className="text-gray-500 text-sm mt-1">Hệ thống đang phân tích toàn bộ 5 part của bạn</p>
+        <p className="text-lg font-bold text-indigo-900">Grading in progress...</p>
+        <p className="text-gray-500 text-sm mt-1">The system is analyzing all 5 parts of your test</p>
       </div>
     </div>
   )
@@ -146,11 +146,11 @@ export default function ResultPage() {
   if (error) return (
     <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-6">
       <div className="text-5xl">⚠️</div>
-      <h2 className="text-xl font-bold text-red-600">Không thể chấm điểm</h2>
+      <h2 className="text-xl font-bold text-red-600">Unable to grade</h2>
       <p className="text-gray-600 text-center max-w-md text-sm">{error}</p>
-      <p className="text-gray-500 text-sm">Kiểm tra lại hệ thống chấm điểm</p>
+      <p className="text-gray-500 text-sm">Please check the grading system</p>
       <button onClick={() => router.push('/done')} className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold hover:bg-indigo-700 transition">
-        Quay lại
+        Go Back
       </button>
     </div>
   )
@@ -171,7 +171,7 @@ export default function ResultPage() {
             <span className="font-bold text-indigo-900 text-sm">Glocal IELTS E-Bridge Test</span>
           </div>
           <button onClick={() => window.print()} className="text-xs text-indigo-600 border border-indigo-200 px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition">
-            🖨️ In kết quả
+            🖨️ Print Results
           </button>
         </div>
       </header>
@@ -198,7 +198,7 @@ export default function ResultPage() {
 
         {/* 5-part score bar overview */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-          <h3 className="font-bold text-gray-700 mb-4 text-sm uppercase tracking-wide">Tổng quan từng Part</h3>
+          <h3 className="font-bold text-gray-700 mb-4 text-sm uppercase tracking-wide">Part Overview</h3>
           <div className="space-y-3">
             {[
               { icon: '🎤', label: 'Part 1 – Self Introduction', score: grades.part1.total },
@@ -227,10 +227,10 @@ export default function ResultPage() {
           icon="🎤" partNum={1} title="Self Introduction"
           total={grades.part1.total}
           criteria={[
-            { label: 'Fluency (lưu loát)', score: grades.part1.fluency },
-            { label: 'Pronunciation (phát âm)', score: grades.part1.pronunciation },
-            { label: 'Vocabulary (từ vựng)', score: grades.part1.vocabulary },
-            { label: 'Grammar (ngữ pháp)', score: grades.part1.grammar },
+            { label: 'Fluency', score: grades.part1.fluency },
+            { label: 'Pronunciation', score: grades.part1.pronunciation },
+            { label: 'Vocabulary', score: grades.part1.vocabulary },
+            { label: 'Grammar', score: grades.part1.grammar },
           ]}
           feedback={grades.part1.feedback}
         />
@@ -240,10 +240,10 @@ export default function ResultPage() {
           icon="🌏" partNum={2} title="Cultural Sharing"
           total={grades.part2.total}
           criteria={[
-            { label: 'Content Relevance (nội dung)', score: grades.part2.contentRelevance },
-            { label: 'Vocabulary (từ vựng)', score: grades.part2.vocabulary },
-            { label: 'Fluency (lưu loát)', score: grades.part2.fluency },
-            { label: 'Grammar (ngữ pháp)', score: grades.part2.grammar },
+            { label: 'Content Relevance', score: grades.part2.contentRelevance },
+            { label: 'Vocabulary', score: grades.part2.vocabulary },
+            { label: 'Fluency', score: grades.part2.fluency },
+            { label: 'Grammar', score: grades.part2.grammar },
           ]}
           feedback={grades.part2.feedback}
         />
@@ -253,10 +253,10 @@ export default function ResultPage() {
           icon="💬" partNum={3} title="Intercultural Discussion"
           total={grades.part3.total}
           criteria={[
-            { label: 'Idea Development (phát triển ý)', score: grades.part3.ideaDevelopment },
-            { label: 'Communication Clarity (rõ ràng)', score: grades.part3.communicationClarity },
-            { label: 'Vocabulary (từ vựng)', score: grades.part3.vocabulary },
-            { label: 'Grammar (ngữ pháp)', score: grades.part3.grammar },
+            { label: 'Idea Development', score: grades.part3.ideaDevelopment },
+            { label: 'Communication Clarity', score: grades.part3.communicationClarity },
+            { label: 'Vocabulary', score: grades.part3.vocabulary },
+            { label: 'Grammar', score: grades.part3.grammar },
           ]}
           feedback={grades.part3.feedback}
         />
@@ -266,23 +266,23 @@ export default function ResultPage() {
           icon="🏆" partNum={4} title="Leadership Scenario"
           total={grades.part4.total}
           criteria={[
-            { label: 'Problem Explanation (giải thích)', score: grades.part4.problemExplanation },
-            { label: 'Communication Skills (kỹ năng)', score: grades.part4.communicationSkills },
-            { label: 'Fluency (lưu loát)', score: grades.part4.fluency },
-            { label: 'Vocabulary (từ vựng)', score: grades.part4.vocabulary },
+            { label: 'Problem Explanation', score: grades.part4.problemExplanation },
+            { label: 'Communication Skills', score: grades.part4.communicationSkills },
+            { label: 'Fluency', score: grades.part4.fluency },
+            { label: 'Vocabulary', score: grades.part4.vocabulary },
           ]}
           feedback={grades.part4.feedback}
         />
 
         {/* Part 5 */}
         <PartCard
-          icon="✍️" partNum={5} title={`Writing Reflection (${grades.part5.wordCount} từ)`}
+          icon="✍️" partNum={5} title={`Writing Reflection (${grades.part5.wordCount} words)`}
           total={grades.part5.total}
           criteria={[
-            { label: 'Task Response (đúng chủ đề)', score: grades.part5.taskResponse },
-            { label: 'Organization (bố cục)', score: grades.part5.organization },
-            { label: 'Vocabulary (từ vựng)', score: grades.part5.vocabulary },
-            { label: 'Grammar (ngữ pháp)', score: grades.part5.grammar },
+            { label: 'Task Response', score: grades.part5.taskResponse },
+            { label: 'Organization', score: grades.part5.organization },
+            { label: 'Vocabulary', score: grades.part5.vocabulary },
+            { label: 'Grammar', score: grades.part5.grammar },
           ]}
           feedback={grades.part5.feedback}
         />
@@ -291,13 +291,13 @@ export default function ResultPage() {
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5">
             <h4 className="font-bold text-emerald-800 mb-2 flex items-center gap-2">
-              <span>💪</span> Điểm mạnh
+              <span>💪</span> Strengths
             </h4>
             <p className="text-sm text-emerald-700 leading-relaxed">{overall.strengths}</p>
           </div>
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
             <h4 className="font-bold text-amber-800 mb-2 flex items-center gap-2">
-              <span>📈</span> Cần cải thiện
+              <span>📈</span> Areas for Improvement
             </h4>
             <p className="text-sm text-amber-700 leading-relaxed">{overall.improvements}</p>
           </div>
@@ -309,13 +309,13 @@ export default function ResultPage() {
             onClick={() => router.push('/')}
             className="flex-1 bg-white border-2 border-indigo-200 text-indigo-600 font-semibold py-3 rounded-xl hover:bg-indigo-50 transition"
           >
-            Trang chủ
+            Home
           </button>
           <button
             onClick={() => window.print()}
             className="flex-1 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold py-3 rounded-xl hover:from-indigo-700 hover:to-blue-700 transition shadow-md"
           >
-            🖨️ In / Lưu PDF kết quả
+            🖨️ Print / Save PDF
           </button>
         </div>
       </main>

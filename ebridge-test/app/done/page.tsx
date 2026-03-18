@@ -45,29 +45,29 @@ export default function DonePage() {
           </div>
         </div>
 
-        <h1 className="text-2xl sm:text-3xl font-bold text-indigo-900 mb-2">Bài thi hoàn thành!</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-indigo-900 mb-2">Test Completed!</h1>
         {candidate && (
           <p className="text-indigo-600 font-medium text-base sm:text-lg mb-3 sm:mb-4">
-            Cảm ơn bạn, <strong>{candidate.fullName}</strong>! 🎉
+            Thank you, <strong>{candidate.fullName}</strong>! 🎉
           </p>
         )}
         <p className="text-sm sm:text-base text-gray-600 mb-5 sm:mb-8 leading-relaxed">
-          Tất cả bài làm của bạn đã được lưu lại. Đội ngũ <strong>E-Bridge</strong> sẽ
-          xem xét và liên hệ với bạn qua số điện thoại hoặc email đã đăng ký.
+          All your answers have been saved. The <strong>E-Bridge</strong> team will
+          review and contact you via the phone number or email you provided.
         </p>
 
         {/* Summary card */}
         <div className="bg-white rounded-2xl shadow-lg border border-indigo-100 p-4 sm:p-6 mb-4 sm:mb-6 text-left">
           <h3 className="font-bold text-gray-700 mb-3 text-xs sm:text-sm uppercase tracking-wide">
-            Tóm tắt bài thi
+            Test Summary
           </h3>
           <div className="space-y-1.5 sm:space-y-3">
             {[
-              { icon: '🎤', label: 'Self Introduction', part: 1, time: '1 phút', type: 'Nói' },
-              { icon: '🌏', label: 'Cultural Sharing', part: 2, time: '1.5 phút', type: 'Nói' },
-              { icon: '💬', label: 'Intercultural Discussion', part: 3, time: '1.5 phút', type: 'Nói' },
-              { icon: '🏆', label: 'Leadership Scenario', part: 4, time: '1.5 phút', type: 'Nói' },
-              { icon: '✍️', label: 'Writing Reflection', part: 5, time: '8 phút', type: 'Viết' },
+              { icon: '🎤', label: 'Self Introduction', part: 1, time: '1 min', type: 'Speaking' },
+              { icon: '🌏', label: 'Cultural Sharing', part: 2, time: '1.5 min', type: 'Speaking' },
+              { icon: '💬', label: 'Intercultural Discussion', part: 3, time: '1.5 min', type: 'Speaking' },
+              { icon: '🏆', label: 'Leadership Scenario', part: 4, time: '1.5 min', type: 'Speaking' },
+              { icon: '✍️', label: 'Writing Reflection', part: 5, time: '8 min', type: 'Writing' },
             ].map(item => (
               <div key={item.label} className="flex items-center gap-2.5 py-1.5 sm:py-2 border-b border-gray-100 last:border-0">
                 <span className="text-lg sm:text-xl shrink-0">{item.icon}</span>
@@ -85,7 +85,7 @@ export default function DonePage() {
 
         {candidate && (
           <div className="bg-indigo-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 text-xs sm:text-sm text-indigo-800 text-left">
-            <p className="font-semibold mb-1.5">📋 Thông tin liên hệ của bạn:</p>
+            <p className="font-semibold mb-1.5">📋 Your contact information:</p>
             <p>📞 {candidate.phone}</p>
             <p className="truncate">📧 {candidate.email}</p>
           </div>
@@ -96,13 +96,13 @@ export default function DonePage() {
           <div className="flex items-start gap-2.5 sm:gap-3">
             <span className="text-2xl sm:text-3xl shrink-0">📧</span>
             <div className="flex-1 min-w-0">
-              <h4 className="font-bold text-white mb-1 text-sm sm:text-base">Kết quả sẽ gửi qua email</h4>
+              <h4 className="font-bold text-white mb-1 text-sm sm:text-base">Results will be sent by email</h4>
               <p className="text-indigo-200 text-xs sm:text-sm leading-relaxed mb-2">
-                Hệ thống sẽ chấm điểm và gửi kết quả chi tiết về email của bạn trong vài giờ.
+                The system will grade your test and send detailed results to your email within a few hours.
               </p>
               {candidate?.email && (
                 <p className="text-indigo-100 text-xs font-medium truncate">
-                  📬 Gửi về: <strong>{candidate.email}</strong>
+                  📬 Sending to: <strong>{candidate.email}</strong>
                 </p>
               )}
             </div>
@@ -113,7 +113,7 @@ export default function DonePage() {
           onClick={() => router.push('/')}
           className="text-indigo-500 hover:text-indigo-700 text-sm underline transition"
         >
-          Quay về trang chủ
+          Back to Home
         </button>
       </div>
 

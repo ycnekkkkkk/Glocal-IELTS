@@ -27,6 +27,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, folderId })
   } catch (error) {
     console.error('Init error:', error)
-    return NextResponse.json({ success: false, error: 'Không thể khởi tạo bài thi' }, { status: 500 })
+    return NextResponse.json({ success: false, error: 'Unable to initialize test' }, { status: 500 })
   }
 }
