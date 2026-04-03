@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { uploadPDF } from '@/lib/gdrive'
-import { generateGradePDF } from '@/lib/pdf-generator'
+import { generateGradePDF, gradeResultPdfFileName } from '@/lib/pdf-generator'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -74,10 +74,11 @@ export async function POST(req: NextRequest) {
     const { action, candidateInfo, grades, writing, folderId } = await req.json()
 
     const pdfBuffer = await generateGradePDF(grades, candidateInfo, writing || '')
+    const pdfFileName = gradeResultPdfFileName(candidateInfo?.fullName)
 
     if (action === 'drive') {
       if (!folderId) return NextResponse.json({ success: false, error: 'Thiếu folderId' }, { status: 400 })
-      await uploadPDF(folderId, 'ket-qua-cham-diem-ai.pdf', pdfBuffer)
+      await uploadPDF(folderId, pdfFileName, pdfBuffer)
       return NextResponse.json({ success: true, action: 'drive' })
     }
 
@@ -96,7 +97,7 @@ export async function POST(req: NextRequest) {
         to: recipientEmail,
         subject: `Glocal IELTS E-Bridge Test Results — ${candidateInfo.fullName}`,
         html: buildEmailHtml(candidateInfo, grades),
-        attachments: [{ filename: 'ket-qua-cham-diem.pdf', content: pdfBuffer }],
+        attachments: [{ filename: pdfFileName, content: pdfBuffer }],
       })
       return NextResponse.json({ success: true, action: 'email' })
     }

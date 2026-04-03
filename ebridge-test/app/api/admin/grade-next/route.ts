@@ -5,7 +5,7 @@ import {
   getOrCreateSubfolder, listFilesInFolder, downloadFile,
   deleteFile, findAudioInFolder, uploadPDF, uploadJson,
 } from '@/lib/gdrive'
-import { generateGradePDF } from '@/lib/pdf-generator'
+import { generateGradePDF, gradeResultPdfFileName } from '@/lib/pdf-generator'
 
 export const runtime = 'nodejs'
 export const maxDuration = 120
@@ -269,12 +269,14 @@ export async function POST(req: NextRequest) {
       }, { status: isQuota ? 429 : 500 })
     }
 
+    const pdfFileName = gradeResultPdfFileName(candidateInfo?.fullName)
+
     // Generate PDF & upload to Drive
     let savedToDrive = false
     if (folderId) {
       try {
         const pdfBuffer = await generateGradePDF(grades, candidateInfo, writing)
-        await uploadPDF(folderId, 'ket-qua-cham-diem-ai.pdf', pdfBuffer)
+        await uploadPDF(folderId, pdfFileName, pdfBuffer)
         savedToDrive = true
       } catch (pdfErr) {
         console.error('PDF/Drive error:', pdfErr)
@@ -301,7 +303,7 @@ export async function POST(req: NextRequest) {
           to: recipientEmail,
           subject: `Glocal IELTS E-Bridge Test Results — ${candidateInfo.fullName}`,
           html: buildEmailHtml(candidateInfo, grades),
-          attachments: [{ filename: 'ket-qua-cham-diem.pdf', content: pdfBuffer }],
+          attachments: [{ filename: pdfFileName, content: pdfBuffer }],
         })
         emailSent = true
       } catch (emailErr) {

@@ -217,3 +217,15 @@ export async function generateGradePDF(
     doc.end()
   })
 }
+
+/** Attachment / Drive filename: "Glocal IELTS E-bridge Test Result - {full name}.pdf" */
+export function gradeResultPdfFileName(fullName: string | undefined | null): string {
+  const prefix = 'Glocal IELTS E-bridge Test Result - '
+  const raw = (fullName ?? '').trim() || 'Candidate'
+  const safe = raw
+    .replace(/[<>:"/\\|?*\u0000-\u001f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 200)
+  return `${prefix}${safe}.pdf`
+}

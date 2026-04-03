@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { uploadPDF } from '@/lib/gdrive'
-import { generateGradePDF } from '@/lib/pdf-generator'
+import { generateGradePDF, gradeResultPdfFileName } from '@/lib/pdf-generator'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -170,7 +170,8 @@ export async function POST(req: NextRequest) {
 
     if (folderId) {
       const pdfBuffer = await generateGradePDF(grades, candidateInfo, writing)
-      await uploadPDF(folderId, 'ket-qua-cham-diem-ai.pdf', pdfBuffer).catch(console.error)
+      const pdfFileName = gradeResultPdfFileName(candidateInfo?.fullName)
+      await uploadPDF(folderId, pdfFileName, pdfBuffer).catch(console.error)
     }
 
     return NextResponse.json({ success: true, grades })
