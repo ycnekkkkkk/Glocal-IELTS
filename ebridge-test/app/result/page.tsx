@@ -166,7 +166,10 @@ export default function ResultPage() {
       <header className="bg-white border-b border-indigo-100 shadow-sm sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-9 w-auto object-contain shrink-0" />
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-9 w-auto object-contain shrink-0" />
+              <img src="/logo-ag.png" alt="Amazing Group" className="h-12 w-auto object-contain shrink-0" />
+            </div>
             <span className="font-bold text-indigo-900 text-sm">Glocal IELTS E-Bridge Test</span>
           </div>
           <button onClick={() => window.print()} className="text-xs text-indigo-600 border border-indigo-200 px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition">

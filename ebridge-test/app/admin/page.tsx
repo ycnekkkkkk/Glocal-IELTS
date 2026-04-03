@@ -407,8 +407,9 @@ export default function AdminPage() {
       <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-indigo-50 to-blue-50 px-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-sm">
           <div className="text-center mb-6">
-            <div className="flex justify-center mb-3">
+            <div className="flex justify-center items-center gap-2 mb-3">
               <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-14 w-14 object-contain" />
+              <img src="/logo-ag.png" alt="Amazing Group" className="h-20 w-20 object-contain" />
             </div>
             <h1 className="text-xl font-bold text-gray-900">Admin Panel</h1>
             <p className="text-sm text-gray-500 mt-1">Glocal IELTS E-Bridge Test</p>
@@ -438,7 +439,10 @@ export default function AdminPage() {
         <header className="bg-white border-b border-gray-200 shadow-sm">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 py-2 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1.5 sm:gap-2">
             <div className="flex items-center gap-2">
-              <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-8 sm:h-10 w-auto object-contain shrink-0" />
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0">
+                <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-8 sm:h-10 w-auto object-contain shrink-0" />
+                <img src="/logo-ag.png" alt="Amazing Group" className="h-11 sm:h-13 w-auto object-contain shrink-0" />
+              </div>
               <div>
                 <h1 className="font-bold text-gray-900 text-sm sm:text-base leading-none">Admin Panel</h1>
                 <p className="text-xs text-gray-400 mt-0.5">Glocal IELTS E-Bridge Test</p>
