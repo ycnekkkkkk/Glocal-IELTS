@@ -399,8 +399,8 @@ export default function TestPage() {
         <div className="max-w-3xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 min-w-0">
-              <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-8 sm:h-9 w-auto object-contain shrink-0" />
               <img src="/logo-ag.png" alt="Amazing Group" className="h-11 sm:h-12 w-auto object-contain shrink-0" />
+              <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-8 sm:h-9 w-auto object-contain shrink-0" />
             </div>
             <span className="font-bold text-indigo-900 text-xs sm:text-sm leading-tight truncate">Glocal IELTS E-Bridge Test</span>
           </div>

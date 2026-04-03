@@ -167,8 +167,8 @@ export default function ResultPage() {
         <div className="max-w-3xl mx-auto px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-9 w-auto object-contain shrink-0" />
               <img src="/logo-ag.png" alt="Amazing Group" className="h-12 w-auto object-contain shrink-0" />
+              <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-9 w-auto object-contain shrink-0" />
             </div>
             <span className="font-bold text-indigo-900 text-sm">Glocal IELTS E-Bridge Test</span>
           </div>
