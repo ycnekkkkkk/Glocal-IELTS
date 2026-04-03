@@ -63,7 +63,7 @@ export async function generateGradePDF(
 
     // ── HEADER ──────────────────────────────────────────
     doc.rect(0, 0, W, 70).fillColor(INDIGO).fill()
-    doc.fillColor('white').fontSize(20).text('Glocal IELTS E-Bridge Test', MARGIN, 16)
+    doc.fillColor('white').fontSize(20).text('Glocal IELTS E-Bridge Test Result', MARGIN, 16)
     doc.fontSize(10).fillColor('#c7d2fe').text('AI Grading Report · E-Bridge Vietnam–Mongolia Exchange Program', MARGIN, 42)
 
     let y = 85
