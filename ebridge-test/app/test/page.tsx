@@ -398,8 +398,7 @@ export default function TestPage() {
       <header className="bg-white border-b border-indigo-100 shadow-sm sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-            <img src="/logo-ag.png" alt="Logo AG" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
-            <img src="/logo-gi.png" alt="Logo GI" className="h-7 sm:h-8 w-auto object-contain shrink-0" />
+            <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-8 sm:h-9 w-auto object-contain shrink-0" />
             <span className="font-bold text-indigo-900 text-xs sm:text-sm leading-tight truncate">Glocal IELTS E-Bridge Test</span>
           </div>
           {candidate && (

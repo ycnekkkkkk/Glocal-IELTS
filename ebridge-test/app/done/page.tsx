@@ -23,8 +23,7 @@ export default function DonePage() {
       {/* Header */}
       <header className="bg-white border-b border-indigo-100 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex items-center gap-2">
-          <img src="/logo-ag.png" alt="Logo AG" className="h-7 sm:h-9 w-auto object-contain shrink-0" />
-          <img src="/logo-gi.png" alt="Logo GI" className="h-7 sm:h-9 w-auto object-contain shrink-0" />
+          <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-8 sm:h-10 w-auto object-contain shrink-0" />
           <div>
             <h1 className="text-xs sm:text-sm font-bold text-indigo-900 leading-tight">Glocal IELTS E-Bridge Test</h1>
             <p className="text-xs text-indigo-400 hidden sm:block">Speaking & Writing Assessment</p>

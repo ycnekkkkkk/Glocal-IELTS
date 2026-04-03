@@ -75,8 +75,7 @@ export default function RegistrationPage() {
       <header className="bg-white border-b border-indigo-100 shadow-sm">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-0 shrink-0">
-            <img src="/logo-ag.png" alt="Logo AG" className="h-8 sm:h-10 w-auto object-contain" />
-            <img src="/logo-gi.png" alt="Logo GI" className="h-8 sm:h-10 w-auto object-contain" />
+            <img src="/logo-glocal-ielts.png" alt="Glocal IELTS" className="h-9 sm:h-11 w-auto object-contain shrink-0" />
           </div>
           <div className="min-w-0">
             <h1 className="text-sm sm:text-lg font-bold text-indigo-900 leading-tight">Glocal IELTS E-Bridge Test</h1>
